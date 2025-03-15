@@ -1,8 +1,12 @@
 import { applicationName, companyName } from "@/app-config";
 import Link from "next/link";
 import { ModeToggle } from "@/components/mode-toggle";
+import { LanguageToggle } from "@/components/language-toggle";
+import { getScopedI18n } from "@/locales/server";
 
-export function Footer() {
+export async function Footer() {
+  const t = await getScopedI18n("footer");
+  
   return (
     <>
       <footer className="border-t bg-gray-100 dark:bg-background">
@@ -10,41 +14,42 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-3">
             <div>
               <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Company
+                {t("company")}
               </h3>
             </div>
             <div>
               <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Help center
+                {t("helpCenter")}
               </h3>
               <ul className="text-gray-500 dark:text-gray-400">
                 <li className="mb-4">
                   <a href="#" className="hover:underline">
-                    Twitter
+                    {t("twitter")}
                   </a>
                 </li>
               </ul>
             </div>
             <div>
               <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Legal
+                {t("legal")}
               </h3>
               <ul className="text-gray-500 dark:text-gray-400">
                 <li className="mb-4">
                   <Link href="/privacy" className="hover:underline">
-                    Privacy Policy
+                    {t("privacyPolicy")}
                   </Link>
                 </li>
                 <li className="mb-4">
                   <Link href="/terms-of-service" className="hover:underline">
-                    Terms of Service
+                    {t("termsOfService")}
                   </Link>
                 </li>
               </ul>
             </div>
           </div>
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex justify-center gap-2">
             <ModeToggle />
+            <LanguageToggle />
           </div>
         </div>
       </footer>

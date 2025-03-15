@@ -22,6 +22,7 @@ import {
 import { getProfileImageFullUrl } from "@/app/[locale]/(main)/dashboard/settings/profile/profile-image";
 import { Notifications } from "./notifications";
 import { MenuButton } from "./menu-button";
+import { getScopedI18n } from "@/locales/server";
 
 export async function Header() {
   const user = await getCurrentUser();
@@ -71,6 +72,7 @@ async function ProfileAvatar({ userId }: { userId: number }) {
 
 async function HeaderActions() {
   const user = await getCurrentUser();
+  const commonT = await getScopedI18n("common");
   const isSignedIn = !!user;
 
   return (
@@ -99,7 +101,7 @@ async function HeaderActions() {
                   href="/dashboard/settings"
                   className="flex gap-2 items-center cursor-pointer"
                 >
-                  <Settings2Icon className="w-4 h-4" /> Settings
+                  <Settings2Icon className="w-4 h-4" /> {commonT("settings")}
                 </Link>
               </DropdownMenuItem>
               <SignOutItem />
@@ -113,7 +115,7 @@ async function HeaderActions() {
       ) : (
         <>
           <Button asChild variant="secondary">
-            <Link href="/sign-in">Sign In</Link>
+            <Link href="/sign-in">{commonT("signIn")}</Link>
           </Button>
         </>
       )}

@@ -9,10 +9,12 @@ import {
 import { BookIcon, MenuIcon, SearchIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useScopedI18n } from "@/locales/client";
 
 export function MenuButton() {
   const path = usePathname();
   const isLandingPage = path === "/";
+  const t = useScopedI18n("menu");
 
   return (
     <DropdownMenu>
@@ -27,7 +29,7 @@ export function MenuButton() {
                 href="/dashboard"
                 className="flex gap-2 items-center cursor-pointer"
               >
-                <UsersIcon className="w-4 h-4" /> Your Groups
+                <UsersIcon className="w-4 h-4" /> {t("yourGroups")}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
@@ -35,7 +37,7 @@ export function MenuButton() {
                 href="/browse"
                 className="flex gap-2 items-center cursor-pointer"
               >
-                <SearchIcon className="w-4 h-4" /> Browse Groups
+                <SearchIcon className="w-4 h-4" /> {t("browseGroups")}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
@@ -43,7 +45,7 @@ export function MenuButton() {
                 href="/docs"
                 className="flex gap-2 items-center cursor-pointer"
               >
-                <BookIcon className="w-4 h-4" /> API Docs
+                <BookIcon className="w-4 h-4" /> {t("apiDocs")}
               </Link>
             </DropdownMenuItem>
           </>
@@ -55,7 +57,7 @@ export function MenuButton() {
                 href="/#features"
                 className="flex gap-2 items-center cursor-pointer"
               >
-                Features
+                {t("features")}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
@@ -63,7 +65,7 @@ export function MenuButton() {
                 href="/#pricing"
                 className="flex gap-2 items-center cursor-pointer"
               >
-                Pricing
+                {t("pricing")}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
@@ -71,7 +73,7 @@ export function MenuButton() {
                 href="/browse"
                 className="flex gap-2 items-center cursor-pointer"
               >
-                <SearchIcon className="w-4 h-4" /> Browse Groups
+                <SearchIcon className="w-4 h-4" /> {t("browseGroups")}
               </Link>
             </DropdownMenuItem>
           </>

@@ -6,7 +6,7 @@ import { getScopedI18n } from "@/locales/server";
 
 export async function Footer() {
   const t = await getScopedI18n("footer");
-  
+
   return (
     <>
       <footer className="border-t bg-gray-100 dark:bg-background">
@@ -56,8 +56,7 @@ export async function Footer() {
       <footer className="py-8 px-5 border-t">
         <div className="text-center">
           <span className="block text-sm text-center text-gray-500 dark:text-gray-400">
-            © 2024 <Link href="/">{applicationName}</Link>. All Rights Reserved.
-            Built with ❤️ by {companyName}
+            <Link href="/">{companyName}</Link> {t("rights")} <br className="hidden md:block" /> {t("rightsChina")}
           </span>
         </div>
       </footer>

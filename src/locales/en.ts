@@ -6,6 +6,8 @@ export default {
         goToDashboard: "Go to Dashboard",
         upgradeNow: "Upgrade now",
         signInToUpgrade: "Sign in to Upgrade",
+        settings: "Settings",
+        signOut: "Sign Out",
     },
     landing: {
         hero: {
@@ -36,7 +38,8 @@ export default {
         legal: "Legal",
         privacyPolicy: "Privacy Policy",
         termsOfService: "Terms of Service",
-        rights: "All Rights Reserved. Built with ❤️ by",
+        rights: "is a registered trademark protected by law. No one may use this trademark in any form without written authorization; otherwise, legal action will be pursued in accordance with the law.",
+        rightsChina: "AIGC projects in Mainland China are provided by Boiling Universe (Shenzhen) Film and Television Co., Ltd. to comply with Chinese legal regulations.",
     },
     menu: {
         yourGroups: "Your Groups",
@@ -52,5 +55,28 @@ export default {
             dark: "Dark",
             system: "System"
         }
+    },
+    browse: {
+        title: "Browse Groups",
+        searchPlaceholder: "basketball, programming, crafting, etc.",
+        searchButton: "Search",
+        noResults: "No groups matching your search",
+    },
+    dashboard: {
+        title: "Your Groups",
+        ownedGroupsTitle: "Groups You Manage",
+        noOwnedGroups: "You don't manage any groups",
+        otherGroupsTitle: "Your Other Groups",
+        noOtherGroups: "You're not part of any groups",
+        emptyState: {
+            title: "Uh-oh, you don't own any groups",
+            createButton: "Create Group",
+            browseButton: "Browse Groups",
+        },
+        groupCard: {
+            manageButton: "Manage Group",
+            viewButton: "View Group",
+            viewButtonBrowse: "View",
+        },
     },
 } as const;

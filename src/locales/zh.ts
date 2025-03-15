@@ -6,6 +6,8 @@ export default {
         goToDashboard: "前往仪表板",
         upgradeNow: "立即升级",
         signInToUpgrade: "登录以升级",
+        settings: "设置",
+        signOut: "登出",
     },
     landing: {
         hero: {
@@ -36,7 +38,8 @@ export default {
         legal: "法律",
         privacyPolicy: "隐私政策",
         termsOfService: "服务条款",
-        rights: "保留所有权利。由以下机构用❤️构建",
+        rights: "是依法受到法律保护的注册商标，任何人不得以任何形式，未经书面授权使用本商标，否则将依法追究法律责任。",
+        rightsChina: "中国境内的AIGC项目由沸腾宇宙（深圳）影业有限公司提供技术支持，以符合中国法律监管要求"
     },
     menu: {
         yourGroups: "您的小组",
@@ -52,5 +55,28 @@ export default {
             dark: "深色",
             system: "系统"
         }
+    },
+    browse: {
+        title: "浏览小组",
+        searchPlaceholder: "篮球、编程、手工等",
+        searchButton: "搜索",
+        noResults: "没有找到匹配的小组",
+    },
+    dashboard: {
+        title: "您的小组",
+        ownedGroupsTitle: "您管理的小组",
+        noOwnedGroups: "您没有管理任何小组",
+        otherGroupsTitle: "您参与的其他小组",
+        noOtherGroups: "您没有参与任何小组",
+        emptyState: {
+            title: "哎呀，您还没有拥有任何小组",
+            createButton: "创建小组",
+            browseButton: "浏览小组",
+        },
+        groupCard: {
+            manageButton: "管理小组",
+            viewButton: "查看小组",
+            viewButtonBrowse: "查看",
+        },
     },
 } as const;

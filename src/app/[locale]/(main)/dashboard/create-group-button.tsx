@@ -6,9 +6,11 @@ import { btnIconStyles, btnStyles } from "@/styles/icons";
 import { InteractiveOverlay } from "@/components/interactive-overlay";
 import { useState } from "react";
 import { CreateGroupForm } from "./create-group-form";
+import { useScopedI18n } from "@/locales/client";
 
 export function CreateGroupButton() {
   const [isOpen, setIsOpen] = useState(false);
+  const t = useScopedI18n("dashboard.emptyState");
 
   return (
     <>
@@ -27,7 +29,7 @@ export function CreateGroupButton() {
         className={btnStyles}
       >
         <PlusCircle className={btnIconStyles} />
-        Create Group
+        {t("createButton")}
       </Button>
     </>
   );

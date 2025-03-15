@@ -10,8 +10,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { CreateGroupButton } from "./create-group-button";
 import { PageHeader } from "@/components/page-header";
+import { getScopedI18n } from "@/locales/server";
 
 export default async function DashboardPage() {
+  const t = await getScopedI18n("dashboard");
   const user = await assertAuthenticated();
 
   const groups = await getGroupsByUserUseCase(user);
@@ -26,7 +28,7 @@ export default async function DashboardPage() {
         )}
       >
         <div className="flex justify-between items-center">
-          <h1 className={pageTitleStyles}>Your Groups</h1>
+          <h1 className={pageTitleStyles}>{t("title")}</h1>
         </div>
 
         <div
@@ -41,14 +43,14 @@ export default async function DashboardPage() {
             height="200"
             alt="no image placeholder image"
           ></Image>
-          <h2>Uh-oh, you don't own any groups</h2>
+          <h2>{t("emptyState.title")}</h2>
 
           <div className="flex gap-4">
             <CreateGroupButton />
 
             <Button asChild className={btnStyles} variant={"secondary"}>
               <Link href={`/browse`}>
-                <Search className={btnIconStyles} /> Browse Groups
+                <Search className={btnIconStyles} /> {t("emptyState.browseButton")}
               </Link>
             </Button>
           </div>
@@ -69,18 +71,18 @@ export default async function DashboardPage() {
             "flex justify-between items-center flex-wrap gap-4"
           )}
         >
-          Your Groups
+          {t("title")}
           {hasGroups && <CreateGroupButton />}
         </h1>
       </PageHeader>
       <div className={cn("space-y-8 container mx-auto py-12 min-h-screen")}>
         <div className="flex justify-between items-center">
-          <h2 className={"text-2xl"}>Groups You Manage</h2>
+          <h2 className={"text-2xl"}>{t("ownedGroupsTitle")}</h2>
         </div>
 
         {ownedGroups.length === 0 && (
           <p className="flex gap-8 items-center mt-8 py-4 rounded border dark:bg-gray-800 px-4">
-            You don't manage any groups
+            {t("noOwnedGroups")}
           </p>
         )}
 
@@ -90,20 +92,20 @@ export default async function DashboardPage() {
               memberCount={group.memberCount.toString()}
               group={group}
               key={group.id}
-              buttonText={"Manage Group"}
+              buttonText={t("groupCard.manageButton")}
             />
           ))}
         </div>
 
         <div className="flex justify-between items-center">
-          <h2 className={"text-2xl"}>Your Other Groups</h2>
+          <h2 className={"text-2xl"}>{t("otherGroupsTitle")}</h2>
         </div>
 
         {memberGroups.length === 0 && (
           <p
             className={cn(cardStyles, "flex gap-8 items-center mt-8 py-4 px-4")}
           >
-            You're not part of any groups
+            {t("noOtherGroups")}
           </p>
         )}
 
@@ -113,7 +115,7 @@ export default async function DashboardPage() {
               memberCount={group.memberCount.toString()}
               group={group}
               key={group.id}
-              buttonText={"View Group"}
+              buttonText={t("groupCard.viewButton")}
             />
           ))}
         </div>

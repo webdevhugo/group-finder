@@ -13,7 +13,7 @@ export default async function InfoContent({
   const { userId } = await params;
   const userIdInt = parseInt(userId);
   const profile = await getUserProfileUseCase(userIdInt);
-  const t = await getScopedI18n("profile.settings");
+  const t = await getScopedI18n("profile");
   return (
     <div>
       {!profile.bio && (

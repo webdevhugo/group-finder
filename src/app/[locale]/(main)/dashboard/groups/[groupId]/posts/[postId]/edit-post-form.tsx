@@ -23,6 +23,7 @@ import { useServerAction } from "zsa-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ToggleContext } from "@/components/interactive-overlay";
 import { updatePostAction } from "./actions";
+import { useScopedI18n } from "@/locales/client";
 
 const updatePostSchema = z.object({
   title: z.string().min(1),
@@ -32,20 +33,22 @@ const updatePostSchema = z.object({
 export function EditPostForm({ post }: { post: Post }) {
   const { setIsOpen: setIsOverlayOpen } = useContext(ToggleContext);
   const { toast } = useToast();
+  const t = useScopedI18n("group.posts.form");
+  const tCommon = useScopedI18n("common");
 
   const { execute, error, isPending } = useServerAction(updatePostAction, {
     onSuccess() {
       toast({
-        title: "Success",
-        description: "Post updated successfully.",
+        title: tCommon("success"),
+        description: t("updateSuccessMessage"),
       });
       setIsOverlayOpen(false);
     },
     onError() {
       toast({
-        title: "Uh oh",
+        title: tCommon("error"),
         variant: "destructive",
-        description: "Something went wrong updating your post.",
+        description: t("updateErrorMessage"),
       });
     },
   });
@@ -80,7 +83,7 @@ export function EditPostForm({ post }: { post: Post }) {
           name="title"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>Title</FormLabel>
+              <FormLabel>{t("postTitle")}</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -94,7 +97,7 @@ export function EditPostForm({ post }: { post: Post }) {
           name="message"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>Message</FormLabel>
+              <FormLabel>{t("message")}</FormLabel>
               <FormControl>
                 <Textarea rows={7} {...field} />
               </FormControl>
@@ -106,13 +109,13 @@ export function EditPostForm({ post }: { post: Post }) {
         {error && (
           <Alert variant="destructive">
             <Terminal className="h-4 w-4" />
-            <AlertTitle>Error updating post</AlertTitle>
+            <AlertTitle>{t("errorUpdateTitle")}</AlertTitle>
             <AlertDescription>{error.message}</AlertDescription>
           </Alert>
         )}
 
         <LoaderButton isLoading={isPending} className="w-fit ml-auto">
-          <CheckIcon className={btnIconStyles} /> Update Post
+          <CheckIcon className={btnIconStyles} /> {t("updatePost")}
         </LoaderButton>
       </form>
     </Form>

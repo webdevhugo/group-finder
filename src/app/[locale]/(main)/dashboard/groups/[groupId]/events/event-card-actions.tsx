@@ -18,6 +18,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { InteractiveOverlay } from "@/components/interactive-overlay";
 import { EditEventForm } from "./edit-event-form";
+import { useScopedI18n } from "@/locales/client";
 
 export function EventCardActions({ event }: { event: Event }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,22 +29,23 @@ export function EventCardActions({ event }: { event: Event }) {
     },
   });
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
+  const t = useScopedI18n("group.events");
   return (
     <>
       <InteractiveOverlay
         isOpen={isEditEventOpen}
         setIsOpen={setIsEditEventOpen}
-        title={"Edit Event"}
-        description={"Edit the event details"}
+        title={t("editEvent")}
+        description={t("editEventDescription")}
         form={<EditEventForm event={event} />}
       />
 
       <DeleteModal
         isOpen={isDeleteModalOpen}
         setIsOpen={setIsDeleteModalOpen}
-        title="Delete Event"
-        description="Are you sure you want to delete this event? Your members might be confused or upset if you delete this event."
+        title={t("deleteEvent")}
+        description={t("deleteEventConfirmation")}
+        confirmText={t("delete")}
         onConfirm={() => {
           execute({
             eventId: event.id,
@@ -66,7 +68,7 @@ export function EventCardActions({ event }: { event: Event }) {
             className={btnStyles}
           >
             <PencilIcon className={btnIconStyles} />
-            Edit Event
+            {t("editEvent")}
           </DropdownMenuItem>
           <DropdownMenuItem
             className={cn(btnStyles, "text-red-500")}
@@ -75,7 +77,7 @@ export function EventCardActions({ event }: { event: Event }) {
             }}
           >
             <TrashIcon className={btnIconStyles} />
-            Delete Event
+            {t("deleteEvent")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

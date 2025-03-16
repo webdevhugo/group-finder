@@ -19,15 +19,18 @@ import { useState } from "react";
 import { useServerAction } from "zsa-react";
 import { cn } from "@/lib/utils";
 import { deletePostAction } from "./actions";
+import { useScopedI18n } from "@/locales/client";
 
 export function DeletePostButton({ postId }: { postId: number }) {
   const { toast } = useToast();
+  const t = useScopedI18n("group.posts");
+  const tCommon = useScopedI18n("common");
   const [isOpen, setIsOpen] = useState(false);
   const { execute, isPending } = useServerAction(deletePostAction, {
     onSuccess() {
       toast({
-        title: "Success",
-        description: "Post deleted successfully",
+        title: tCommon("success"),
+        description: t("deletePostSuccess"),
       });
     },
   });
@@ -36,26 +39,26 @@ export function DeletePostButton({ postId }: { postId: number }) {
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <Button variant={"destructive"} className={cn(btnStyles, "w-fit")}>
-          <Trash className={btnIconStyles} /> Delete Post
+          <Trash className={btnIconStyles} /> {t("deletePost")}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete Post</AlertDialogTitle>
+          <AlertDialogTitle>{t("deletePost")}</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete this post?
+            {t("deletePostConfirm")}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{tCommon("cancel")}</AlertDialogCancel>
           <LoaderButton
             isLoading={isPending}
             onClick={() => {
               execute({ postId });
             }}
           >
-            Delete Post
+            {t("deletePost")}
           </LoaderButton>
         </AlertDialogFooter>
       </AlertDialogContent>

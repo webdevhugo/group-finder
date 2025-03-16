@@ -19,7 +19,8 @@ import { CalendarDays, CalendarIcon, Clock, Terminal } from "lucide-react";
 import { btnIconStyles } from "@/styles/icons";
 import { Textarea } from "@/components/ui/textarea";
 import { createEventAction } from "./actions";
-import { format } from "date-fns";
+import { formatDate } from "@/util/date";
+import { useCurrentLocale } from "@/locales/client";
 import {
   Popover,
   PopoverContent,
@@ -59,9 +60,10 @@ export function CreateEventForm({ groupId }: { groupId: GroupId }) {
   const { toast } = useToast();
   const t = useScopedI18n("group.events.form");
   const tCommon = useScopedI18n("common");
+  const locale = useCurrentLocale();
+  const isZh = locale === 'zh';
   const minuteRef = useRef<HTMLInputElement>(null);
   const hourRef = useRef<HTMLInputElement>(null);
-  const secondRef = useRef<HTMLInputElement>(null);
   const periodRef = useRef<HTMLButtonElement>(null);
   const [date, setDate] = useState<Date>();
   const [period, setPeriod] = useState<Period>("PM");
@@ -170,7 +172,7 @@ export function CreateEventForm({ groupId }: { groupId: GroupId }) {
                       )}
                     >
                       {field.value ? (
-                        format(field.value, "PPP")
+                        formatDate(field.value, locale)
                       ) : (
                         <span>{t("pickDate")}</span>
                       )}
@@ -200,57 +202,78 @@ export function CreateEventForm({ groupId }: { groupId: GroupId }) {
         <FormLabel className="mt-4">{t("timeOfEvent")}</FormLabel>
 
         <div className="flex items-end gap-2">
-          <div className="grid gap-1 text-center">
-            <Label htmlFor="hours" className="text-xs">
-              {t("hours")}
-            </Label>
-            <TimePickerInput
-              picker="12hours"
-              period={period}
-              date={date}
-              setDate={setDate}
-              ref={hourRef}
-              onRightFocus={() => minuteRef.current?.focus()}
-            />
-          </div>
-          <div className="grid gap-1 text-center">
-            <Label htmlFor="minutes" className="text-xs">
-              {t("minutes")}
-            </Label>
-            <TimePickerInput
-              picker="minutes"
-              date={date}
-              setDate={setDate}
-              ref={minuteRef}
-              onLeftFocus={() => hourRef.current?.focus()}
-              onRightFocus={() => secondRef.current?.focus()}
-            />
-          </div>
-          <div className="grid gap-1 text-center">
-            <Label htmlFor="seconds" className="text-xs">
-              {t("seconds")}
-            </Label>
-            <TimePickerInput
-              picker="seconds"
-              date={date}
-              setDate={setDate}
-              ref={secondRef}
-              onLeftFocus={() => minuteRef.current?.focus()}
-            />
-          </div>
-          <div className="grid gap-1 text-center">
-            <Label htmlFor="period" className="text-xs">
-              {t("period")}
-            </Label>
-            <TimePeriodSelect
-              period={period}
-              setPeriod={setPeriod}
-              date={date}
-              setDate={setDate}
-              ref={periodRef}
-              onLeftFocus={() => secondRef.current?.focus()}
-            />
-          </div>
+        {/* 根据语言环境显示不同的时间选择器 */}
+        {isZh ? (
+          // 中文环境：24小时制
+          <>
+            <div className="grid gap-1 text-center">
+              <Label htmlFor="hours" className="text-xs">
+                {t("hours")} {/* 显示为"时" */}
+              </Label>
+              <TimePickerInput
+                picker="24hours"
+                date={date}
+                setDate={setDate}
+                ref={hourRef}
+                onRightFocus={() => minuteRef.current?.focus()}
+              />
+            </div>
+            <div className="grid gap-1 text-center">
+              <Label htmlFor="minutes" className="text-xs">
+                {t("minutes")} {/* 显示为"分" */}
+              </Label>
+              <TimePickerInput
+                picker="minutes"
+                date={date}
+                setDate={setDate}
+                ref={minuteRef}
+                onLeftFocus={() => hourRef.current?.focus()}
+              />
+            </div>
+          </>
+        ) : (
+          // 英文环境：12小时制 + AM/PM
+          <>
+            <div className="grid gap-1 text-center">
+              <Label htmlFor="hours" className="text-xs">
+                {t("hours")} {/* 显示为"Hours" */}
+              </Label>
+              <TimePickerInput
+                picker="12hours"
+                period={period}
+                date={date}
+                setDate={setDate}
+                ref={hourRef}
+                onRightFocus={() => minuteRef.current?.focus()}
+              />
+            </div>
+            <div className="grid gap-1 text-center">
+              <Label htmlFor="minutes" className="text-xs">
+                {t("minutes")} {/* 显示为"Minutes" */}
+              </Label>
+              <TimePickerInput
+                picker="minutes"
+                date={date}
+                setDate={setDate}
+                ref={minuteRef}
+                onLeftFocus={() => hourRef.current?.focus()}
+              />
+            </div>
+            <div className="grid gap-1 text-center">
+              <Label htmlFor="period" className="text-xs">
+                {t("period")} {/* 显示为"Period" */}
+              </Label>
+              <TimePeriodSelect
+                period={period}
+                setPeriod={setPeriod}
+                date={date}
+                setDate={setDate}
+                ref={periodRef}
+                onLeftFocus={() => minuteRef.current?.focus()}
+              />
+            </div>
+          </>
+        )}
 
           <div className="flex h-10 items-center">
             <Clock className="ml-2 h-4 w-4" />

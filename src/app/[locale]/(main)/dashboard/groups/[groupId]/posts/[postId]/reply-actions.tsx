@@ -26,17 +26,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useScopedI18n } from "@/locales/client";
 
 export function ReplyActions({ reply }: { reply: Reply }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditPostOpen, setIsEditPostOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { toast } = useToast();
+  const t = useScopedI18n("group.posts.reply");
+  const tCommon = useScopedI18n("common");
+
   const { execute, isPending } = useServerAction(deleteReplyAction, {
     onSuccess() {
       toast({
-        title: "Success",
-        description: "Reply deleted",
+        title: tCommon("success"),
+        description: t("deleteReplySuccess"),
       });
       setIsDeleteDialogOpen(false);
     },
@@ -45,8 +49,8 @@ export function ReplyActions({ reply }: { reply: Reply }) {
   return (
     <>
       <InteractiveOverlay
-        title={"Edit Reply"}
-        description={"Update the message in your reply"}
+        title={t("editReply")}
+        description={t("editReplyDescription")}
         form={<EditReplyForm reply={reply} />}
         isOpen={isEditPostOpen}
         setIsOpen={setIsEditPostOpen}
@@ -58,14 +62,14 @@ export function ReplyActions({ reply }: { reply: Reply }) {
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Reply</AlertDialogTitle>
+            <AlertDialogTitle>{t("deleteReply")}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this reply?
+              {t("deleteReplyConfirm")}
             </AlertDialogDescription>
           </AlertDialogHeader>
 
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{tCommon("cancel")}</AlertDialogCancel>
             <LoaderButton
               isLoading={isPending}
               onClick={() => {
@@ -76,7 +80,7 @@ export function ReplyActions({ reply }: { reply: Reply }) {
                 });
               }}
             >
-              Delete Reply
+              {t("deleteReply")}
             </LoaderButton>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -98,7 +102,7 @@ export function ReplyActions({ reply }: { reply: Reply }) {
               setIsOpen(false);
             }}
           >
-            <PencilIcon className={btnIconStyles} /> Edit Reply
+            <PencilIcon className={btnIconStyles} /> {t("editReply")}
           </DropdownMenuItem>
           <DropdownMenuItem
             className="flex items-center gap-2 text-red-500"
@@ -108,7 +112,7 @@ export function ReplyActions({ reply }: { reply: Reply }) {
               setIsOpen(false);
             }}
           >
-            <Trash className={btnIconStyles} /> Delete Reply
+            <Trash className={btnIconStyles} /> {t("deleteReply")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

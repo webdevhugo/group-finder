@@ -22,6 +22,7 @@ import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ReplyActions } from "./reply-actions";
 import { getScopedI18n } from "@/locales/server";
+import { getCurrentLocale } from "@/locales/server";
 
 export default async function PostPage({
   params,
@@ -118,6 +119,7 @@ async function RepliesList({
 
 async function ReplyCard({ reply }: { reply: Reply }) {
   const user = await getCurrentUser();
+  const locale = await getCurrentLocale();
   const hasMutateAccess = await hasAccessToMutateReplyUseCase(user, reply.id);
 
   return (
@@ -127,7 +129,7 @@ async function ReplyCard({ reply }: { reply: Reply }) {
           <Suspense fallback={<ReplyAvatarFallback />}>
             <ReplyAvatar userId={reply.userId} />
           </Suspense>
-          <div className="text-sm">{formatDate(reply.createdOn)}</div>
+          <div className="text-sm">{formatDate(reply.createdOn, locale)}</div>
         </div>
 
         {hasMutateAccess && (

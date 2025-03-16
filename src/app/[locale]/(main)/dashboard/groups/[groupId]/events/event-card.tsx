@@ -3,10 +3,11 @@
 import { Event } from "@/db/schema";
 import { getEventImageUrl } from "../settings/util";
 import Image from "next/image";
-import { format } from "date-fns";
+import { formatDateTime } from "@/util/date";
 import { EventCardActions } from "./event-card-actions";
 import { cn } from "@/lib/utils";
 import { cardStyles } from "@/styles/common";
+import { useCurrentLocale } from "@/locales/client";
 
 export function EventCard({
   event,
@@ -15,6 +16,7 @@ export function EventCard({
   event: Event;
   isAdmin: boolean;
 }) {
+  const locale = useCurrentLocale();
   return (
     <div key={event.id} className={cn(cardStyles, "p-4 sm:p-8 space-y-4")}>
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
@@ -28,7 +30,7 @@ export function EventCard({
         <div className="flex flex-col gap-2 sm:gap-4 flex-1">
           <h2 className="text-xl sm:text-2xl font-semibold">{event.name}</h2>
           <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300">
-            {format(event.startsOn, "PPp")}
+            {formatDateTime(event.startsOn, locale)}
           </p>
           <p className="text-sm sm:text-base">{event.description}</p>
         </div>

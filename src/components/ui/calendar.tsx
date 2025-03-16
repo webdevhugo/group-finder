@@ -3,9 +3,10 @@
 import * as React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { DayPicker } from "react-day-picker"
-
+import { zhCN } from 'date-fns/locale';
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import { useCurrentLocale } from "@/locales/client"
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
@@ -15,10 +16,29 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
+  const locale = useCurrentLocale();
+  const isZh = locale === 'zh';
+  
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
+      locale={isZh ? zhCN : undefined}
+      weekStartsOn={isZh ? 1 : 0}  // 中文从周一开始
+      formatters={{
+        // 自定义月份格式
+        formatMonthCaption: (date, options) => {
+          return isZh 
+            ? `${date.getFullYear()}年${date.getMonth() + 1}月`
+            : date.toLocaleString(options?.locale?.code || 'en', { month: 'long', year: 'numeric' });
+        },
+        // 自定义星期格式
+        formatWeekdayName: (date, options) => {
+          return isZh
+            ? '日一二三四五六'[date.getDay()]
+            : date.toLocaleString(options?.locale?.code || 'en', { weekday: 'short' });
+        },
+      }}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",

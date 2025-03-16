@@ -18,15 +18,17 @@ import { clearReadNotificationsAction } from "./actions";
 import { useToast } from "@/components/ui/use-toast";
 import { TrashIcon } from "lucide-react";
 import { btnIconStyles, btnStyles } from "@/styles/icons";
+import { useScopedI18n } from "@/locales/client";
 
 export function ClearReadButton() {
+  const t = useScopedI18n("notifications");
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
   const { execute, isPending } = useServerAction(clearReadNotificationsAction, {
     onSuccess: () => {
       toast({
-        title: "Success",
-        description: "Read messages were cleared.",
+        title: t("success"),
+        description: t("cleared"),
       });
       setIsOpen(false);
     },
@@ -36,27 +38,26 @@ export function ClearReadButton() {
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <Button className={btnStyles} variant="destructive">
-          <TrashIcon className={btnIconStyles} /> Clear read notifications
+          <TrashIcon className={btnIconStyles} /> {t("clearRead")}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogTitle>{t("confirmClear")}</AlertDialogTitle>
           <AlertDialogDescription>
-            This will permanently clear all your read notifications from the
-            system.
+            {t("confirmClearDesc")}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
           <LoaderButton
             onClick={() => {
               execute();
             }}
             isLoading={isPending}
           >
-            Clear Notifications
+            {t("clearButton")}
           </LoaderButton>
         </AlertDialogFooter>
       </AlertDialogContent>

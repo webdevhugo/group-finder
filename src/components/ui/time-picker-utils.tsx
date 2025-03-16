@@ -111,46 +111,59 @@ export function set12Hours(date: Date, value: string, period: Period) {
   return date;
 }
 
-export type TimePickerType = "minutes" | "seconds" | "hours" | "12hours";
+export type TimePickerType = "hours" | "minutes" | "12hours" | "24hours";
 export type Period = "AM" | "PM";
 
-export function setDateByType(
+export const setDateByType = (
   date: Date,
   value: string,
   type: TimePickerType,
   period?: Period
-) {
-  switch (type) {
-    case "minutes":
-      return setMinutes(date, value);
-    case "seconds":
-      return setSeconds(date, value);
-    case "hours":
-      return setHours(date, value);
-    case "12hours": {
-      if (!period) return date;
-      return set12Hours(date, value, period);
-    }
-    default:
-      return date;
-  }
-}
+): Date => {
+  const numValue = parseInt(value, 10);
+  const newDate = new Date(date);
 
-export function getDateByType(date: Date, type: TimePickerType) {
   switch (type) {
-    case "minutes":
-      return getValidMinuteOrSecond(String(date.getMinutes()));
-    case "seconds":
-      return getValidMinuteOrSecond(String(date.getSeconds()));
-    case "hours":
-      return getValidHour(String(date.getHours()));
+    case "24hours":
+      if (numValue >= 0 && numValue <= 23) {
+        newDate.setHours(numValue);
+      }
+      break;
     case "12hours":
-      const hours = display12HourValue(date.getHours());
-      return getValid12Hour(String(hours));
+      if (numValue >= 1 && numValue <= 12) {
+        const hours = period === "PM" ? 
+          (numValue === 12 ? 12 : numValue + 12) : 
+          (numValue === 12 ? 0 : numValue);
+        newDate.setHours(hours);
+      }
+      break;
+    case "minutes":
+      if (numValue >= 0 && numValue <= 59) {
+        newDate.setMinutes(numValue);
+      }
+      break;
+  }
+
+  return newDate;
+};
+
+// 添加 24 小时制的处理逻辑
+export const getDateByType = (date: Date, type: TimePickerType): string => {
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  
+  switch (type) {
+    case "24hours":
+      return hours.toString().padStart(2, "0");
+    case "12hours":
+      const h = hours % 12;
+      return (h === 0 ? 12 : h).toString().padStart(2, "0");
+    case "minutes":
+      return minutes.toString().padStart(2, "0");
     default:
       return "00";
   }
-}
+};
 
 export function getArrowByType(
   value: string,
@@ -160,10 +173,8 @@ export function getArrowByType(
   switch (type) {
     case "minutes":
       return getValidArrowMinuteOrSecond(value, step);
-    case "seconds":
-      return getValidArrowMinuteOrSecond(value, step);
-    case "hours":
-      return getValidArrowHour(value, step);
+    case "24hours":
+      return getValidArrowHour(value, step);  // 使用24小时制的箭头处理
     case "12hours":
       return getValidArrow12Hour(value, step);
     default:

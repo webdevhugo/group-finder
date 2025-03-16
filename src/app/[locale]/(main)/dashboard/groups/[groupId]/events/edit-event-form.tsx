@@ -25,7 +25,8 @@ import {
 import { btnIconStyles } from "@/styles/icons";
 import { Textarea } from "@/components/ui/textarea";
 import { editEventAction } from "./actions";
-import { format } from "date-fns";
+import { formatDate } from "@/util/date";
+import { useCurrentLocale } from "@/locales/client";
 import {
   Popover,
   PopoverContent,
@@ -46,7 +47,6 @@ import {
   MAX_UPLOAD_IMAGE_SIZE,
   MAX_UPLOAD_IMAGE_SIZE_IN_MB,
 } from "@/app-config";
-import { formatDate } from "@/util/date";
 import { useScopedI18n } from "@/locales/client";
 
 const editEventSchema = z.object({
@@ -68,20 +68,20 @@ function getPeriod(date: Date) {
 export function EditEventForm({ event }: { event: Event }) {
   const { setIsOpen: setIsOverlayOpen } = useContext(ToggleContext);
   const { toast } = useToast();
-  const t = useScopedI18n("group.events");
+  const t = useScopedI18n("group.events.form");
   const tCommon = useScopedI18n("common");
   const minuteRef = useRef<HTMLInputElement>(null);
   const hourRef = useRef<HTMLInputElement>(null);
-  const secondRef = useRef<HTMLInputElement>(null);
   const periodRef = useRef<HTMLButtonElement>(null);
   const [date, setDate] = useState<Date | undefined>(event.startsOn);
   const [period, setPeriod] = useState<Period>(getPeriod(event.startsOn));
-
+  const locale = useCurrentLocale();
+  const isZh = locale === 'zh';
   const { execute, error, isPending } = useServerAction(editEventAction, {
     onSuccess() {
       toast({
         title: tCommon("success"),
-        description: t("form.successMessage"),
+        description: t("successMessage"),
       });
       setIsOverlayOpen(false);
     },
@@ -89,7 +89,7 @@ export function EditEventForm({ event }: { event: Event }) {
       toast({
         title: tCommon("error"),
         variant: "destructive",
-        description: t("form.errorMessage"),
+        description: t("errorMessage"),
       });
     },
   });
@@ -138,7 +138,7 @@ export function EditEventForm({ event }: { event: Event }) {
           name="name"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>{t("form.eventName")}</FormLabel>
+              <FormLabel>{t("eventName")}</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -152,7 +152,7 @@ export function EditEventForm({ event }: { event: Event }) {
           name="description"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>{t("form.description")}</FormLabel>
+              <FormLabel>{t("description")}</FormLabel>
               <FormControl>
                 <Textarea rows={7} {...field} />
               </FormControl>
@@ -166,7 +166,7 @@ export function EditEventForm({ event }: { event: Event }) {
           name="startsOn"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>{t("form.dateOfEvent")}</FormLabel>
+              <FormLabel>{t("dateOfEvent")}</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -178,9 +178,9 @@ export function EditEventForm({ event }: { event: Event }) {
                       )}
                     >
                       {field.value ? (
-                        formatDate(field.value)
+                        formatDate(field.value, locale)
                       ) : (
-                        <span>{t("form.pickDate")}</span>
+                        <span>{t("pickDate")}</span>
                       )}
                       <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                     </Button>
@@ -205,48 +205,81 @@ export function EditEventForm({ event }: { event: Event }) {
           )}
         />
 
-        <FormLabel className="mt-4">{t("form.timeOfEvent")}</FormLabel>
+        <FormLabel className="mt-4">{t("timeOfEvent")}</FormLabel>
 
         <div className="flex items-end gap-2">
-          <div className="grid gap-1 text-center">
-            <Label htmlFor="hours" className="text-xs">
-              {t("form.hours")}
-            </Label>
-            <TimePickerInput
-              picker="12hours"
-              period={period}
-              date={date}
-              setDate={setDate}
-              ref={hourRef}
-              onRightFocus={() => minuteRef.current?.focus()}
-            />
-          </div>
-          <div className="grid gap-1 text-center">
-            <Label htmlFor="minutes" className="text-xs">
-              {t("form.minutes")}
-            </Label>
-            <TimePickerInput
-              picker="minutes"
-              date={date}
-              setDate={setDate}
-              ref={minuteRef}
-              onLeftFocus={() => hourRef.current?.focus()}
-              onRightFocus={() => secondRef.current?.focus()}
-            />
-          </div>
-          <div className="grid gap-1 text-center">
-            <Label htmlFor="period" className="text-xs">
-              {t("form.period")}
-            </Label>
-            <TimePeriodSelect
-              period={period}
-              setPeriod={setPeriod}
-              date={date}
-              setDate={setDate}
-              ref={periodRef}
-              onLeftFocus={() => secondRef.current?.focus()}
-            />
-          </div>
+        {/* 根据语言环境显示不同的时间选择器 */}
+        {isZh ? (
+          // 中文环境：24小时制
+          <>
+            <div className="grid gap-1 text-center">
+              <Label htmlFor="hours" className="text-xs">
+                {t("hours")} {/* 显示为"时" */}
+              </Label>
+              <TimePickerInput
+                picker="24hours"
+                date={date}
+                setDate={setDate}
+                ref={hourRef}
+                onRightFocus={() => minuteRef.current?.focus()}
+              />
+            </div>
+            <div className="grid gap-1 text-center">
+              <Label htmlFor="minutes" className="text-xs">
+                {t("minutes")} {/* 显示为"分" */}
+              </Label>
+              <TimePickerInput
+                picker="minutes"
+                date={date}
+                setDate={setDate}
+                ref={minuteRef}
+                onLeftFocus={() => hourRef.current?.focus()}
+              />
+            </div>
+          </>
+        ) : (
+          // 英文环境：12小时制 + AM/PM
+          <>
+            <div className="grid gap-1 text-center">
+              <Label htmlFor="hours" className="text-xs">
+                {t("hours")} {/* 显示为"Hours" */}
+              </Label>
+              <TimePickerInput
+                picker="12hours"
+                period={period}
+                date={date}
+                setDate={setDate}
+                ref={hourRef}
+                onRightFocus={() => minuteRef.current?.focus()}
+              />
+            </div>
+            <div className="grid gap-1 text-center">
+              <Label htmlFor="minutes" className="text-xs">
+                {t("minutes")} {/* 显示为"Minutes" */}
+              </Label>
+              <TimePickerInput
+                picker="minutes"
+                date={date}
+                setDate={setDate}
+                ref={minuteRef}
+                onLeftFocus={() => hourRef.current?.focus()}
+              />
+            </div>
+            <div className="grid gap-1 text-center">
+              <Label htmlFor="period" className="text-xs">
+                {t("period")} {/* 显示为"Period" */}
+              </Label>
+              <TimePeriodSelect
+                period={period}
+                setPeriod={setPeriod}
+                date={date}
+                setDate={setDate}
+                ref={periodRef}
+                onLeftFocus={() => minuteRef.current?.focus()}
+              />
+            </div>
+          </>
+        )}
 
           <div className="flex h-10 items-center">
             <Clock className="ml-2 h-4 w-4" />
@@ -258,7 +291,7 @@ export function EditEventForm({ event }: { event: Event }) {
           name="file"
           render={({ field: { value, onChange, ...fieldProps } }) => (
             <FormItem>
-              <FormLabel>{t("form.image")}</FormLabel>
+              <FormLabel>{t("image")}</FormLabel>
               <FormControl>
                 <Input
                   {...fieldProps}
@@ -278,7 +311,7 @@ export function EditEventForm({ event }: { event: Event }) {
         {error && (
           <Alert variant="destructive">
             <Terminal className="h-4 w-4" />
-            <AlertTitle>{t("form.errorTitle")}</AlertTitle>
+            <AlertTitle>{t("errorTitle")}</AlertTitle>
             <AlertDescription>{error.message}</AlertDescription>
           </Alert>
         )}
@@ -289,7 +322,7 @@ export function EditEventForm({ event }: { event: Event }) {
           }}
           isLoading={isPending}
         >
-          <Check className={btnIconStyles} /> {t("form.saveUpdates")}
+          <Check className={btnIconStyles} /> {t("saveUpdates")}
         </LoaderButton>
       </form>
     </Form>

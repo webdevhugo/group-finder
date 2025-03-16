@@ -10,6 +10,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useScopedI18n } from "@/locales/client";
+
 
 export function DeleteModal({
   onConfirm,
@@ -28,6 +30,7 @@ export function DeleteModal({
   confirmText?: string;
   isPending: boolean;
 }) {
+  const t = useScopedI18n("group.events");
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogContent>
@@ -37,7 +40,7 @@ export function DeleteModal({
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
           <LoaderButton onClick={onConfirm} isLoading={isPending}>
             {confirmText}
           </LoaderButton>

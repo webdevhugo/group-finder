@@ -9,10 +9,12 @@ import { MarkReadAllButton } from "./mark-read-button";
 import { ViewButton } from "./view-button";
 import { ClearReadButton } from "./clear-read-button";
 import { getNotificationIcon } from "@/util/notifications";
+import { getCurrentLocale, getScopedI18n } from "@/locales/server";
 
 export default async function NotificationsPage() {
   const user = await getCurrentUser();
-
+  const locale = await getCurrentLocale();
+  const t = await getScopedI18n("notifications");
   if (!user) {
     return null;
   }
@@ -26,7 +28,7 @@ export default async function NotificationsPage() {
           <h1
             className={cn(pageTitleStyles, "flex justify-between items-center")}
           >
-            Your Notifications
+            {t("title")}
           </h1>
 
           <div className="flex flex-wrap gap-2 w-full sm:w-auto">
@@ -51,7 +53,7 @@ export default async function NotificationsPage() {
                 height="200"
                 alt="no image placeholder image"
               ></Image>
-              <h2 className="text-2xl">You have no notifications</h2>
+              <h2 className="text-2xl">{t("empty")}</h2>
             </div>
           )}
 
@@ -71,7 +73,7 @@ export default async function NotificationsPage() {
                         {notification.message}
                       </h3>
                       <p className="text-sm sm:text-base text-gray-900 dark:text-gray-200">
-                        {formatDate(notification.createdOn)}
+                        {formatDate(notification.createdOn, locale)}
                       </p>
                     </div>
                     <div className="mt-4 sm:mt-0">

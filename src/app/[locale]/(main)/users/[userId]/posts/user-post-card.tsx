@@ -14,6 +14,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getGroupById } from "@/data-access/groups";
 import { cardStyles, linkStyles } from "@/styles/common";
 import { cn } from "@/lib/utils";
+import { getScopedI18n } from "@/locales/server";
+import { getCurrentLocale } from '@/locales/server';
 
 function PostAvatarFallback() {
   return (
@@ -46,6 +48,8 @@ export async function UserPostCard({ post }: { post: Post }) {
   const canDeletePost = await canEditPostUseCase(user, post.id);
   const replyCount = await getReplyCountUseCase(user, post.id);
   const group = (await getGroupById(post.groupId))!;
+  const t = await getScopedI18n("group.posts");
+  const locale = await getCurrentLocale();
 
   return (
     <div className={cn(cardStyles, "p-4 flex flex-col gap-4")}>
@@ -64,7 +68,7 @@ export async function UserPostCard({ post }: { post: Post }) {
           <Suspense fallback={<PostAvatarFallback />}>
             <PostAvatar userId={post.userId} />
           </Suspense>
-          <div>{formatDate(post.createdOn)}</div>
+          <div>{formatDate(post.createdOn, locale)}</div>
           <Link
             scroll={false}
             className={cn(linkStyles, "break-all")}
@@ -78,13 +82,13 @@ export async function UserPostCard({ post }: { post: Post }) {
           {canDeletePost ? (
             <Button asChild className="w-full sm:w-fit">
               <Link href={`/dashboard/groups/${post.groupId}/posts/${post.id}`}>
-                Manage post...
+                {t("managePost")}
               </Link>
             </Button>
           ) : (
             <Button asChild className="w-full sm:w-fit" variant={"secondary"}>
               <Link href={`/dashboard/groups/${post.groupId}/posts/${post.id}`}>
-                Read post...
+                {t("readPost")}
               </Link>
             </Button>
           )}

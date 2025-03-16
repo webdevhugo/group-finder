@@ -11,6 +11,7 @@ import {
   isUserMemberOfGroupUseCase,
 } from "@/use-cases/membership";
 import { cn } from "@/lib/utils";
+import { getScopedI18n } from "@/locales/server";
 
 export default async function PostsPage({
   params,
@@ -21,11 +22,12 @@ export default async function PostsPage({
   const groupIdInt = parseInt(groupId);
   const user = await getCurrentUser();
   const canPost = await isUserMemberOfGroupUseCase(user, groupIdInt);
+  const t = await getScopedI18n("group.posts");
 
   return (
     <div className="flex flex-col gap-8">
       <div className="flex justify-between items-center">
-        <h2 className={pageTitleStyles}>Posts</h2>
+        <h2 className={pageTitleStyles}>{t("title")}</h2>
         {canPost && <CreatePostButton />}
       </div>
 
@@ -44,6 +46,7 @@ function PostsListLoader() {
 
 async function PostsList({ groupId }: { groupId: string }) {
   const user = await getCurrentUser();
+  const t = await getScopedI18n("group.posts");
 
   const posts = await getPostsInGroupUseCase(user, parseInt(groupId));
 
@@ -62,7 +65,7 @@ async function PostsList({ groupId }: { groupId: string }) {
             height="200"
             alt="no image placeholder image"
           ></Image>
-          <h2>No posts created yet</h2>
+          <h2>{t("noPosts")}</h2>
           <CreatePostButton />
         </div>
       )}

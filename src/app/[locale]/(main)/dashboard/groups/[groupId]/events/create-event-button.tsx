@@ -7,16 +7,18 @@ import { Calendar } from "lucide-react";
 import { btnIconStyles, btnStyles } from "@/styles/icons";
 import { InteractiveOverlay } from "@/components/interactive-overlay";
 import { useState } from "react";
+import { useScopedI18n } from "@/locales/client";
 
 export function CreateEventButton() {
   const { groupId } = useParams<{ groupId: string }>();
   const [isOpen, setIsOpen] = useState(false);
+  const t = useScopedI18n("group.events");
 
   return (
     <>
       <InteractiveOverlay
-        title={"Create Event"}
-        description={"Fill in the form below to create an event."}
+        title={t("createButton")}
+        description={t("createDescription")}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         form={<CreateEventForm groupId={parseInt(groupId)} />}
@@ -29,7 +31,7 @@ export function CreateEventButton() {
         className={btnStyles}
       >
         <Calendar className={btnIconStyles} />
-        Create Event
+        {t("createButton")}
       </Button>
     </>
   );

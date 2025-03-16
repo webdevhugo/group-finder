@@ -20,23 +20,26 @@ import { useServerAction } from "zsa-react";
 import { deleteGroupAction } from "./actions";
 import { useGroupIdParam } from "../utils";
 import { cn } from "@/lib/utils";
+import { useScopedI18n } from "@/locales/client";
 
 export function DeleteGroupButton() {
+  const t = useScopedI18n("group.danger");
+  const tCommon = useScopedI18n("common");
   const groupId = useGroupIdParam();
   const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const { execute, isPending } = useServerAction(deleteGroupAction, {
     onSuccess() {
       toast({
-        title: "Success",
-        description: "You left this group.",
+        title: tCommon("success"),
+        description: t("successMessage"),
       });
     },
     onError() {
       toast({
-        title: "Uh oh",
+        title: tCommon("error"),
         variant: "destructive",
-        description: "Something went wrong delete your group.",
+        description: t("errorMessage"),
       });
     },
   });
@@ -45,28 +48,26 @@ export function DeleteGroupButton() {
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <Button variant={"destructive"} className={cn(btnStyles, "w-fit")}>
-          <DoorOpen className={btnIconStyles} /> Delete Group
+          <DoorOpen className={btnIconStyles} /> {t("deleteButton")}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete Group</AlertDialogTitle>
+          <AlertDialogTitle>{t("deleteConfirmTitle")}</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete this group? All your members will no
-            longer be able to view the group information and all data will be
-            removed from our system.
+            {t("deleteConfirmDescription")}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{t("cancelButton")}</AlertDialogCancel>
           <LoaderButton
             isLoading={isPending}
             onClick={() => {
               execute({ groupId });
             }}
           >
-            Delete Group
+            {t("deleteButton")}
           </LoaderButton>
         </AlertDialogFooter>
       </AlertDialogContent>

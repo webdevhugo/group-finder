@@ -47,6 +47,7 @@ import {
   MAX_UPLOAD_IMAGE_SIZE_IN_MB,
 } from "@/app-config";
 import { formatDate } from "@/util/date";
+import { useScopedI18n } from "@/locales/client";
 
 const editEventSchema = z.object({
   name: z.string().min(1),
@@ -67,6 +68,8 @@ function getPeriod(date: Date) {
 export function EditEventForm({ event }: { event: Event }) {
   const { setIsOpen: setIsOverlayOpen } = useContext(ToggleContext);
   const { toast } = useToast();
+  const t = useScopedI18n("group.events");
+  const tCommon = useScopedI18n("common");
   const minuteRef = useRef<HTMLInputElement>(null);
   const hourRef = useRef<HTMLInputElement>(null);
   const secondRef = useRef<HTMLInputElement>(null);
@@ -77,16 +80,16 @@ export function EditEventForm({ event }: { event: Event }) {
   const { execute, error, isPending } = useServerAction(editEventAction, {
     onSuccess() {
       toast({
-        title: "Success",
-        description: "Event created successfully.",
+        title: tCommon("success"),
+        description: t("form.successMessage"),
       });
       setIsOverlayOpen(false);
     },
     onError() {
       toast({
-        title: "Uh oh",
+        title: tCommon("error"),
         variant: "destructive",
-        description: "Something went wrong creating your event.",
+        description: t("form.errorMessage"),
       });
     },
   });
@@ -135,7 +138,7 @@ export function EditEventForm({ event }: { event: Event }) {
           name="name"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>Event Name</FormLabel>
+              <FormLabel>{t("form.eventName")}</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -149,7 +152,7 @@ export function EditEventForm({ event }: { event: Event }) {
           name="description"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>Description</FormLabel>
+              <FormLabel>{t("form.description")}</FormLabel>
               <FormControl>
                 <Textarea rows={7} {...field} />
               </FormControl>
@@ -163,7 +166,7 @@ export function EditEventForm({ event }: { event: Event }) {
           name="startsOn"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Date of Event</FormLabel>
+              <FormLabel>{t("form.dateOfEvent")}</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -177,7 +180,7 @@ export function EditEventForm({ event }: { event: Event }) {
                       {field.value ? (
                         formatDate(field.value)
                       ) : (
-                        <span>Pick a date</span>
+                        <span>{t("form.pickDate")}</span>
                       )}
                       <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                     </Button>
@@ -202,12 +205,12 @@ export function EditEventForm({ event }: { event: Event }) {
           )}
         />
 
-        <FormLabel className="mt-4">Time of Event</FormLabel>
+        <FormLabel className="mt-4">{t("form.timeOfEvent")}</FormLabel>
 
         <div className="flex items-end gap-2">
           <div className="grid gap-1 text-center">
             <Label htmlFor="hours" className="text-xs">
-              Hours
+              {t("form.hours")}
             </Label>
             <TimePickerInput
               picker="12hours"
@@ -220,7 +223,7 @@ export function EditEventForm({ event }: { event: Event }) {
           </div>
           <div className="grid gap-1 text-center">
             <Label htmlFor="minutes" className="text-xs">
-              Minutes
+              {t("form.minutes")}
             </Label>
             <TimePickerInput
               picker="minutes"
@@ -233,7 +236,7 @@ export function EditEventForm({ event }: { event: Event }) {
           </div>
           <div className="grid gap-1 text-center">
             <Label htmlFor="period" className="text-xs">
-              Period
+              {t("form.period")}
             </Label>
             <TimePeriodSelect
               period={period}
@@ -255,7 +258,7 @@ export function EditEventForm({ event }: { event: Event }) {
           name="file"
           render={({ field: { value, onChange, ...fieldProps } }) => (
             <FormItem>
-              <FormLabel>Image</FormLabel>
+              <FormLabel>{t("form.image")}</FormLabel>
               <FormControl>
                 <Input
                   {...fieldProps}
@@ -275,7 +278,7 @@ export function EditEventForm({ event }: { event: Event }) {
         {error && (
           <Alert variant="destructive">
             <Terminal className="h-4 w-4" />
-            <AlertTitle>Error creating event</AlertTitle>
+            <AlertTitle>{t("form.errorTitle")}</AlertTitle>
             <AlertDescription>{error.message}</AlertDescription>
           </Alert>
         )}
@@ -286,7 +289,7 @@ export function EditEventForm({ event }: { event: Event }) {
           }}
           isLoading={isPending}
         >
-          <Check className={btnIconStyles} /> Save Updates
+          <Check className={btnIconStyles} /> {t("form.saveUpdates")}
         </LoaderButton>
       </form>
     </Form>

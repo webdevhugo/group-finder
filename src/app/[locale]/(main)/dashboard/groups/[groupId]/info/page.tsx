@@ -17,6 +17,7 @@ import { socialIconStyles } from "@/styles/icons";
 import { NotFoundError } from "@/app/[locale]/(main)/util";
 import { cardStyles, pageTitleStyles } from "@/styles/common";
 import { cn } from "@/lib/utils";
+import { getScopedI18n } from "@/locales/server";
 
 export default async function InfoPage({
   params,
@@ -24,6 +25,7 @@ export default async function InfoPage({
   params: Promise<{ groupId: string }>;
 }) {
   const { groupId } = await params;
+  const t = await getScopedI18n("group.info");
 
   const user = await getCurrentUser();
 
@@ -41,7 +43,7 @@ export default async function InfoPage({
   return (
     <div className="space-y-8">
       <h1 className={cn(pageTitleStyles, "flex justify-between items-center")}>
-        <div>Info</div>
+        <div>{t("title")}</div>
       </h1>
 
       <div className="flex flex-col lg:flex-row gap-8">

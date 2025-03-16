@@ -9,6 +9,7 @@ import { GroupNameForm } from "./group-name-form";
 import { ConfigurationPanel } from "@/components/configuration-panel";
 import { GroupDescriptionForm } from "./group-description-form";
 import { SocialLinksForm } from "./social-links-form";
+import { getScopedI18n } from "@/locales/server";
 
 export default async function Settings({
   params,
@@ -19,7 +20,7 @@ export default async function Settings({
   const user = await assertAuthenticated();
   const groupIdInt = parseInt(groupId);
   const group = await getGroupByIdUseCase(user, groupIdInt);
-
+  const t = await getScopedI18n("settings");
   if (!group) {
     return <div>Group not found</div>;
   }
@@ -27,11 +28,11 @@ export default async function Settings({
   return (
     <div className="space-y-8">
       <h1 className={`${pageTitleStyles} text-center md:text-left`}>
-        Group Settings
+        {t("title")}
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <ConfigurationPanel title={"Group Image"}>
+        <ConfigurationPanel title={t("groupImage")}>
           <div className="flex flex-col gap-8">
             <Image
               src={getGroupImageUrl(group)}
@@ -41,22 +42,20 @@ export default async function Settings({
               alt="image of the group"
             />
             <p className="dark:text-gray-400 text-sm">
-              Upload a group image to make your group stand out.
+              {t("groupImageDescription")}
             </p>
             <BannerUploadForm groupId={group.id} />
           </div>
         </ConfigurationPanel>
 
-        <ConfigurationPanel title={"Group Name"}>
+        <ConfigurationPanel title={t("groupName")}>
           <GroupNameForm groupId={group.id} groupName={group?.name ?? ""} />
         </ConfigurationPanel>
 
-        <ConfigurationPanel title={"Group Visibility"}>
+        <ConfigurationPanel title={t("groupVisibility")}>
           <div className="flex flex-col gap-8">
             <p className="dark:text-gray-400 text-sm">
-              Groups are private by default. If you want random people on the
-              internet to find and join your group without an invite, switch
-              this to on.
+              {t("groupVisibilityDescription")}
             </p>
             <GroupVisibilitySwitch group={group} />
           </div>
@@ -64,14 +63,14 @@ export default async function Settings({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <ConfigurationPanel title={"Group Description"}>
+        <ConfigurationPanel title={t("groupDescription")}>
           <GroupDescriptionForm
             groupId={group.id}
             description={group?.description ?? ""}
           />
         </ConfigurationPanel>
 
-        <ConfigurationPanel title={"Social Links"}>
+        <ConfigurationPanel title={t("socialLinks.title")}>
           <SocialLinksForm group={group} />
         </ConfigurationPanel>
       </div>

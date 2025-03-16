@@ -18,12 +18,14 @@ import { updateGroupSocialLinksAction } from "./actions";
 import { Group } from "@/db/schema";
 import { socialUrlSchema } from "./schema";
 import { useServerAction } from "zsa-react";
+import { useScopedI18n } from "@/locales/client";
 
 const updateSocialLinksSchema = z.object(socialUrlSchema);
 
 export function SocialLinksForm({ group }: { group: Group }) {
   const { toast } = useToast();
-
+  const t = useScopedI18n("settings");
+  const tCommon = useScopedI18n("common");
   const form = useForm<z.infer<typeof updateSocialLinksSchema>>({
     resolver: zodResolver(updateSocialLinksSchema),
     defaultValues: {
@@ -39,14 +41,14 @@ export function SocialLinksForm({ group }: { group: Group }) {
     {
       onSuccess: () => {
         toast({
-          title: "Group Updated",
-          description: "Your social links have been updated.",
+          title: t("socialLinks.updated"),
+          description: t("socialLinks.updatedMessage"),
         });
       },
       onError: ({ err }) => {
         toast({
-          title: "Error",
-          description: err.message || "Failed to update social links.",
+          title: tCommon("error"),
+          description: err.message || t("socialLinks.errorMessage"),
           variant: "destructive",
         });
       },
@@ -70,7 +72,7 @@ export function SocialLinksForm({ group }: { group: Group }) {
           name="youtubeLink"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>Youtube</FormLabel>
+              <FormLabel>{t("socialLinks.youtube")}</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -83,7 +85,7 @@ export function SocialLinksForm({ group }: { group: Group }) {
           name="discordLink"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>Discord</FormLabel>
+              <FormLabel>{t("socialLinks.discord")}</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -96,7 +98,7 @@ export function SocialLinksForm({ group }: { group: Group }) {
           name="xLink"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>X</FormLabel>
+              <FormLabel>{t("socialLinks.x")}</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -109,7 +111,7 @@ export function SocialLinksForm({ group }: { group: Group }) {
           name="githubLink"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>Github</FormLabel>
+              <FormLabel>{t("socialLinks.github")}</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -118,7 +120,7 @@ export function SocialLinksForm({ group }: { group: Group }) {
           )}
         />
         <LoaderButton className="w-fit ml-auto" isLoading={isPending}>
-          Save
+          {t("save")}
         </LoaderButton>
       </form>
     </Form>

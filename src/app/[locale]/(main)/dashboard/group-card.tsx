@@ -14,8 +14,9 @@ import { cardStyles } from "@/styles/common";
 import { UsersIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getScopedI18n } from "@/locales/server";
 
-export function GroupCard({
+export async function GroupCard({
   group,
   buttonText,
   memberCount,
@@ -24,6 +25,8 @@ export function GroupCard({
   buttonText: string;
   memberCount: string;
 }) {
+  const t = await getScopedI18n("dashboard.groupCard");
+
   return (
     <Card className={cn(cardStyles)}>
       <CardHeader>
@@ -41,7 +44,7 @@ export function GroupCard({
       </CardHeader>
       <CardContent>
         <div className="flex gap-2 justify-center items-center">
-          <UsersIcon /> {memberCount} members
+          <UsersIcon /> {memberCount} {t("members")}
         </div>
       </CardContent>
       <CardFooter>

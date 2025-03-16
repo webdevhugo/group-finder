@@ -21,6 +21,7 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ReplyActions } from "./reply-actions";
+import { getScopedI18n } from "@/locales/server";
 
 export default async function PostPage({
   params,
@@ -28,7 +29,7 @@ export default async function PostPage({
   params: Promise<{ postId: string; groupId: string }>;
 }) {
   const { postId, groupId } = await params;
-
+  const t = await getScopedI18n("group.posts");
   const user = await getCurrentUser();
   const postIdInt = parseInt(postId);
   const groupIdInt = parseInt(groupId);
@@ -40,7 +41,7 @@ export default async function PostPage({
       <div className="flex justify-between items-center">
         <Button asChild>
           <Link href={`/dashboard/groups/${groupId}/posts`}>
-            <ChevronLeft /> Back to Posts
+            <ChevronLeft /> {t("backToPosts")}
           </Link>
         </Button>
 
@@ -52,7 +53,7 @@ export default async function PostPage({
       {isPostAdmin ? <EditPostForm post={post} /> : <p>{post.message}</p>}
 
       <h2 className="text-2xl" id="replies">
-        Replies
+        {t("replies")}
       </h2>
 
       <Suspense>

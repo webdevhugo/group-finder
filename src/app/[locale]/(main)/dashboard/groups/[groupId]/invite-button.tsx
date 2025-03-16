@@ -31,6 +31,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
+import { useScopedI18n } from "@/locales/client";
 
 export const schema = z.object({
   email: z.string().email(),
@@ -40,7 +41,8 @@ export function InviteButton() {
   const { toast } = useToast();
   const { groupId } = useParams<{ groupId: string }>();
   const [isOpen, setIsOpen] = useState(false);
-
+  const t = useScopedI18n("group.members.invite");
+  const tCommon = useScopedI18n("common");
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -53,14 +55,14 @@ export function InviteButton() {
       setIsOpen(false);
       form.reset();
       toast({
-        title: "Invite Sent",
-        description: "Tell your friend to check their email.",
+        title: tCommon("success"),
+        description: t("successMessage"),
       });
     },
     onError: ({ err }) => {
       toast({
-        title: "Error",
-        description: err.message || "Failed to send invite.",
+        title: tCommon("error"),
+        description: err.message || t("errorMessage"),
         variant: "destructive",
       });
     },
@@ -77,14 +79,14 @@ export function InviteButton() {
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <Button className={btnStyles}>
-          <MailIcon className={btnIconStyles} /> Send Invite
+          <MailIcon className={btnIconStyles} /> {t("button")}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Invite a Friend</AlertDialogTitle>
+          <AlertDialogTitle>{t("title")}</AlertDialogTitle>
           <AlertDialogDescription>
-            Enter the email of the person you want to invite to this group.
+            {t("description")}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -95,9 +97,12 @@ export function InviteButton() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t("emailLabel")}</FormLabel>
                   <FormControl>
-                    <Input placeholder="webdevcody@gmail.com" {...field} />
+                    <Input
+                      placeholder={t("emailPlaceholder")}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -105,8 +110,10 @@ export function InviteButton() {
             />
 
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <LoaderButton isLoading={isPending}>Invite</LoaderButton>
+              <AlertDialogCancel>{t("cancelButton")}</AlertDialogCancel>
+              <LoaderButton isLoading={isPending}>
+                {t("inviteButton")}
+              </LoaderButton>
             </AlertDialogFooter>
           </form>
         </Form>

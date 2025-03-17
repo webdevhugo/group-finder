@@ -4,10 +4,12 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { tabStyles } from "@/styles/common";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useScopedI18n } from "@/locales/client";
 
 export function SettingsTab({ hasSubscription }: { hasSubscription: boolean }) {
   const path = usePathname();
   const tabInUrl = path.split("/").pop();
+  const t = useScopedI18n('settings.tab');
 
   return (
     <div className={tabStyles}>
@@ -15,23 +17,23 @@ export function SettingsTab({ hasSubscription }: { hasSubscription: boolean }) {
         <Tabs value={tabInUrl} defaultValue={tabInUrl} activationMode="manual">
           <TabsList className="space-x-4 bg-inherit">
             <TabsTrigger asChild value="profile">
-              <Link href={`/dashboard/settings/profile`}>Profile</Link>
+              <Link href={`/dashboard/settings/profile`}>{t('profile')}</Link>
             </TabsTrigger>
 
             <TabsTrigger asChild value="security">
-              <Link href={`/dashboard/settings/security`}>Security</Link>
+              <Link href={`/dashboard/settings/security`}>{t('security')}</Link>
             </TabsTrigger>
 
             {hasSubscription && (
               <TabsTrigger asChild value="subscription">
                 <Link href={`/dashboard/settings/subscription`}>
-                  Subscription
+                  {t('subscription')}
                 </Link>
               </TabsTrigger>
             )}
 
             <TabsTrigger asChild value="danger">
-              <Link href={`/dashboard/settings/danger`}>Danger</Link>
+              <Link href={`/dashboard/settings/danger`}>{t('danger')}</Link>
             </TabsTrigger>
           </TabsList>
         </Tabs>

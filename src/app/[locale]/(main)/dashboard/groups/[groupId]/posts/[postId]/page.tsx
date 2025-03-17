@@ -109,7 +109,7 @@ async function RepliesList({
   return (
     <div className="flex flex-col gap-4">
       {replies.map((reply) => (
-        <ReplyCard reply={reply} />
+        <ReplyCard key={reply.id} reply={reply} />
       ))}
 
       {isMember && <PostReplyForm groupId={groupId} postId={postId} />}

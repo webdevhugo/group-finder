@@ -15,8 +15,8 @@ export function CreateGroupButton() {
   return (
     <>
       <InteractiveOverlay
-        title={"Create Group"}
-        description={"Create a new group to start managing your events."}
+        title={t("createTitle")}
+        description={t("createDescription")}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         form={<CreateGroupForm />}

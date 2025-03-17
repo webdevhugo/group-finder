@@ -8,10 +8,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ConfigurationPanel } from "@/components/configuration-panel";
 import { ModeToggle } from "@/components/mode-toggle";
 import { LanguageToggle } from "@/components/language-toggle";
+import { getScopedI18n } from "@/locales/server";
 
 export const getUserProfileLoader = cache(getUserProfileUseCase);
 
 export default async function SettingsPage() {
+  const t = await getScopedI18n('settings');
   return (
     <div className="space-y-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
@@ -19,22 +21,22 @@ export default async function SettingsPage() {
         <ProfileName />
       </div>
 
-      <ConfigurationPanel title="Profile Bio">
+      <ConfigurationPanel title={t('bioTitle')}>
         <Suspense fallback={<Skeleton className="w-full h-[400px] rounded" />}>
           <BioFormWrapper />
         </Suspense>
       </ConfigurationPanel>
 
-      <ConfigurationPanel title="Theme">
+      <ConfigurationPanel title={t('themeTitle')}>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
-          <span className="mb-2 sm:mb-0">Toggle dark mode</span>
+          <span className="mb-2 sm:mb-0">{t('themeToggle')}</span>
           <ModeToggle />
         </div>
       </ConfigurationPanel>
 
-      <ConfigurationPanel title="Language">
+      <ConfigurationPanel title={t('languageTitle')}>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
-          <span className="mb-2 sm:mb-0">Change language</span>
+          <span className="mb-2 sm:mb-0">{t('languageToggle')}</span>
           <LanguageToggle />
         </div>
       </ConfigurationPanel>

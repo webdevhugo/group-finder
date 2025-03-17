@@ -82,6 +82,34 @@ export default {
             light: "浅色",
             dark: "深色",
             system: "系统"
+        },
+        bioTitle: "个人简介",
+        languageTitle: "语言",
+        languageToggle: "切换语言",
+        themeTitle: "主题",
+        themeToggle: "切换主题",
+        tab: {
+            profile: "个人资料",
+            security: "安全",
+            subscription: "订阅",
+            danger: "危险"
+        },
+        accountSettings: "账户设置",
+        switchToProfile: "切换到个人资料",
+        security: {
+            sessions: "会话",
+            sessionsDescription: "如果您在多个设备上登录，您可以强制注销所有设备。",
+            logoutAllSessions: "注销所有会话"
+        },
+        danger: {
+            deleteAccount: "删除账户",
+            deleteAccountDescription: "删除您的账户意味着您将无法在未来恢复您的数据。请输入 Please delete 确认。",
+            deleteAccountTitle: "您确定吗？",
+            confirm: "确认",
+            cancel: "取消",
+            failedToDeleteAccount: "删除账户失败。",
+            accountDeleted: "账户已删除",
+            accountDeletedDescription: "您的账户已成功删除。",
         }
     },
     browse: {
@@ -100,6 +128,8 @@ export default {
             title: "哎呀，您还没有拥有任何小组",
             createButton: "创建小组",
             browseButton: "浏览小组",
+            createTitle: "创建小组",
+            createDescription: "创建一个新的小组来开始管理您的活动。",
         },
         groupCard: {
             manageButton: "管理小组",
@@ -107,6 +137,35 @@ export default {
             viewButtonBrowse: "查看",
             members: "成员",
         },
+        groupCreated: "小组已创建",
+        groupCreatedDescription: "您现在可以开始管理您的活动",
+        somethingWentWrong: "出了点问题",
+        groupName: "小组名称",
+        groupDescription: "小组描述",
+        createGroup: "创建小组",
+        save: "保存",
+        nameUpdated: "名称已更新",
+        nameUpdatedDescription: "名称更新成功。",
+        failedToUpdateGroupName: "更新小组名称失败。",
+        updateSuccessful: "更新成功",
+        updateSuccessfulDescription: "小组可见性已更新。",
+        isGroupPublic: "小组是否公开",
+        failedToUpdateGroupDescription: "更新小组描述失败。",
+        updateDescriptionSuccessfulDescription: "您的描述已更新。",
+        ohSomethingWentWrong: "哎呀，出了点问题",
+        upload: "上传",
+        image: "图片",
+        imageUpdated: "图片已更新",
+        imageUpdatedGroupDescription: "您已成功更新小组图片。",
+        imageUpdatedProfileDescription: "您已成功更新个人图片。",
+        failedToUpdateGroupImage: "更新小组图片失败。",
+        failedToUpdateProfileImage: "更新个人图片失败。",
+        profileImage: "个人图片",
+        profileBioUpdated: "您的个人简介已更新。",
+        failedToUpdateProfileBio: "更新个人简介失败。",
+        saveChanges: "保存更改",
+        displayName: "显示名称",
+        failedToUpdateProfileName: "更新显示名称失败。",
     },
     group: {
         header: {
@@ -426,4 +485,21 @@ export default {
             footer: "© 2025 {appName}。保留所有权利。"
         },
     },
+    users: {
+        unfollow: "取消关注",
+        unfollowedUser: "您已取消关注该用户。",
+        failedToUnfollowUser: "取消关注时出现错误。",
+        follow: "关注",
+        followedUser: "您已关注该用户。",
+        failedToFollowUser: "关注时出现错误。",
+    },
+    replies: {
+        postNotFound: "帖子未找到",
+        userDoesNotHaveAccessToGroup: "您没有权限访问此群组",
+        userDoesNotHavePermissionToReplyToPost: "您没有权限回复此帖子",
+        userDoesNotHavePermissionToDeleteReply: "您没有权限删除此回复",
+        userDoesNotHaveAccessToReply: "您没有权限访问此回复",
+        replyNotFound: "回复未找到",
+        someoneRepliedToYourPost: "有人回复了您的帖子标题为 {title}。",
+    }
 } as const;

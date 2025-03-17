@@ -21,6 +21,7 @@ import {
   MAX_UPLOAD_IMAGE_SIZE_IN_MB,
 } from "@/app-config";
 import { useServerAction } from "zsa-react";
+import { useScopedI18n } from "@/locales/client";
 
 const uploadImageSchema = z.object({
   file: z.instanceof(File).refine((file) => file.size < MAX_UPLOAD_IMAGE_SIZE, {
@@ -30,6 +31,8 @@ const uploadImageSchema = z.object({
 
 export function ProfileImageForm() {
   const { toast } = useToast();
+  const t = useScopedI18n('dashboard');
+  const tCommon = useScopedI18n('common');
   const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<z.infer<typeof uploadImageSchema>>({
@@ -42,15 +45,15 @@ export function ProfileImageForm() {
     {
       onError: ({ err }) => {
         toast({
-          title: "Error",
-          description: err.message || "Failed to update profile image.",
+          title: tCommon('error'),
+          description: err.message || t('failedToUpdateProfileImage'),
           variant: "destructive",
         });
       },
       onSuccess: () => {
         toast({
-          title: "Image Updated",
-          description: "You've successfully updated your profile image.",
+          title: t('imageUpdated'),
+          description: t('imageUpdatedProfileDescription'),
         });
         formRef.current?.reset();
       },
@@ -77,7 +80,7 @@ export function ProfileImageForm() {
           name="file"
           render={({ field: { value, onChange, ...fieldProps } }) => (
             <FormItem>
-              <FormLabel>Image</FormLabel>
+              <FormLabel>{t('image')}</FormLabel>
               <FormControl>
                 <Input
                   {...fieldProps}
@@ -93,7 +96,7 @@ export function ProfileImageForm() {
             </FormItem>
           )}
         />
-        <LoaderButton isLoading={isPending}>Upload</LoaderButton>
+        <LoaderButton isLoading={isPending}>{t('upload')}</LoaderButton>
       </form>
     </Form>
   );

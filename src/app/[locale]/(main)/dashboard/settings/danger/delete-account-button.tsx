@@ -28,6 +28,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { deleteAccountAction } from "./actions";
 import { useServerAction } from "zsa-react";
+import { useScopedI18n } from "@/locales/client";
 
 export const deleteSchema = z.object({
   confirm: z.string().refine((v) => v === "Please delete", {
@@ -38,6 +39,8 @@ export const deleteSchema = z.object({
 export function DeleteAccountButton() {
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
+  const t = useScopedI18n('settings.danger');
+  const tCommon = useScopedI18n('common');
 
   const form = useForm<z.infer<typeof deleteSchema>>({
     resolver: zodResolver(deleteSchema),
@@ -52,14 +55,14 @@ export function DeleteAccountButton() {
       onSuccess: () => {
         setIsOpen(false);
         toast({
-          title: "Account Deleted",
-          description: "Your account has been successfully deleted.",
+          title: t('accountDeleted'),
+          description: t('accountDeletedDescription'),
         });
       },
       onError: ({ err }) => {
         toast({
-          title: "Error",
-          description: err.message || "Failed to delete account.",
+          title: tCommon('error'),
+          description: err.message || t('failedToDeleteAccount'),
           variant: "destructive",
         });
       },
@@ -74,16 +77,14 @@ export function DeleteAccountButton() {
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <Button className="w-fit" variant="destructive">
-          Delete Account
+          {t('deleteAccount')}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogTitle>{t('deleteAccountTitle')}</AlertDialogTitle>
           <AlertDialogDescription>
-            Deleting your account means you will not be able to recover your
-            data in the future. Please type <strong>Please delete</strong> to
-            confirm.
+            {t('deleteAccountDescription')}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -94,7 +95,7 @@ export function DeleteAccountButton() {
               name="confirm"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Confirm</FormLabel>
+                  <FormLabel>{t('confirm')}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -104,9 +105,9 @@ export function DeleteAccountButton() {
             />
 
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
               <LoaderButton isLoading={isPending} variant="destructive">
-                Delete
+                {t('deleteAccount')}
               </LoaderButton>
             </AlertDialogFooter>
           </form>

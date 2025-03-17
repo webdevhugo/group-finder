@@ -5,8 +5,10 @@ import { btnIconStyles, btnStyles } from "@/styles/icons";
 import { LogOut } from "lucide-react";
 import { useServerAction } from "zsa-react";
 import { invalidateUserSessionsAction } from "./actions";
+import { useScopedI18n } from "@/locales/client";
 
 export function LogoutAllDevicesButton() {
+  const t = useScopedI18n('settings.security');
   const { execute, isPending } = useServerAction(invalidateUserSessionsAction);
 
   return (
@@ -18,7 +20,7 @@ export function LogoutAllDevicesButton() {
       isLoading={isPending}
     >
       <LogOut className={btnIconStyles} />
-      Logout of all Sessions
+      {t('logoutAllSessions')}
     </LoaderButton>
   );
 }

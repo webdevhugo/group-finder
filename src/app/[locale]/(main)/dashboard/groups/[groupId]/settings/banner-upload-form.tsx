@@ -22,6 +22,7 @@ import {
   MAX_UPLOAD_IMAGE_SIZE_IN_MB,
 } from "@/app-config";
 import { useServerAction } from "zsa-react";
+import { useScopedI18n } from "@/locales/client";
 
 const uploadImageSchema = z.object({
   file: z.instanceof(File).refine((file) => file.size < MAX_UPLOAD_IMAGE_SIZE, {
@@ -31,6 +32,8 @@ const uploadImageSchema = z.object({
 
 export function BannerUploadForm({ groupId }: { groupId: GroupId }) {
   const { toast } = useToast();
+  const t = useScopedI18n('dashboard');
+  const tCommon = useScopedI18n('common');
   const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<z.infer<typeof uploadImageSchema>>({
@@ -43,15 +46,15 @@ export function BannerUploadForm({ groupId }: { groupId: GroupId }) {
     {
       onError: ({ err }) => {
         toast({
-          title: "Error",
-          description: err.message || "Failed to update group image.",
+          title: tCommon('error'),
+          description: err.message || t('failedToUpdateGroupImage'),
           variant: "destructive",
         });
       },
       onSuccess: () => {
         toast({
-          title: "Image Updated",
-          description: "You've successfull updated your group image.",
+          title: t('imageUpdated'),
+          description: t('imageUpdatedGroupDescription'),
         });
         formRef.current?.reset();
       },
@@ -78,7 +81,7 @@ export function BannerUploadForm({ groupId }: { groupId: GroupId }) {
           name="file"
           render={({ field: { value, onChange, ...fieldProps } }) => (
             <FormItem>
-              <FormLabel>Image</FormLabel>
+              <FormLabel>{t('image')}</FormLabel>
               <FormControl>
                 <Input
                   {...fieldProps}
@@ -95,7 +98,7 @@ export function BannerUploadForm({ groupId }: { groupId: GroupId }) {
           )}
         />
         <div className="flex justify-end">
-          <LoaderButton isLoading={isPending}>Upload</LoaderButton>
+          <LoaderButton isLoading={isPending}>{t('upload')}</LoaderButton>
         </div>
       </form>
     </Form>

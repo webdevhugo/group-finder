@@ -82,6 +82,34 @@ export default {
             light: "Light",
             dark: "Dark",
             system: "System"
+        },
+        bioTitle: "Profile Bio",
+        languageTitle: "Language",
+        languageToggle: "Change Language",
+        themeTitle: "Theme",
+        themeToggle: "Toggle Theme",
+        tab: {
+            profile: "Profile",
+            security: "Security",
+            subscription: "Subscription",
+            danger: "Danger"
+        },
+        accountSettings: "Account Settings",
+        switchToProfile: "Switch to Profile",
+        security: {
+            sessions: "Sessions",
+            sessionsDescription: "If you're logged in on multiple devices, you can force a logout on all of them.",
+            logoutAllSessions: "Logout of all Sessions"
+        },
+        danger: {
+            deleteAccount: "Delete Account",
+            deleteAccountDescription: "Deleting your account means you will not be able to recover your data in the future. Please type Please delete to confirm.",
+            deleteAccountTitle: "Are you sure?",
+            confirm: "Confirm",
+            cancel: "Cancel",
+            failedToDeleteAccount: "Failed to delete account.",
+            accountDeleted: "Account Deleted",
+            accountDeletedDescription: "Your account has been successfully deleted.",
         }
     },
     browse: {
@@ -100,6 +128,8 @@ export default {
             title: "Uh-oh, you don't own any groups",
             createButton: "Create Group",
             browseButton: "Browse Groups",
+            createTitle: "Create Group",
+            createDescription: "Create a new group to start managing your events.",
         },
         groupCard: {
             manageButton: "Manage Group",
@@ -107,6 +137,35 @@ export default {
             viewButtonBrowse: "View",
             members: "members",
         },
+        groupCreated: "Group Created",
+        groupCreatedDescription: "You can now start managing your events",
+        somethingWentWrong: "Something went wrong",
+        groupName: "Group Name",
+        groupDescription: "Group Description",
+        createGroup: "Create Group",
+        save: "Save",
+        nameUpdated: "Name Updated",
+        nameUpdatedDescription: "Name updated successfully.",
+        failedToUpdateGroupName: "Failed to update group name.",
+        updateSuccessful: "Update successful",
+        updateSuccessfulDescription: "Group visibility updated.",
+        isGroupPublic: "Is Group Public",
+        failedToUpdateGroupDescription: "Failed to update group description.",
+        updateDescriptionSuccessfulDescription: "Your group description has been updated.",
+        ohSomethingWentWrong: "Uh-oh, something went wrong",
+        upload: "Upload",
+        image: "Image",
+        imageUpdated: "Image Updated",
+        imageUpdatedGroupDescription: "You've successfull updated your group image.",
+        imageUpdatedProfileDescription: "You've successfully updated your profile image.",
+        failedToUpdateGroupImage: "Failed to update group image.",
+        failedToUpdateProfileImage: "Failed to update profile image.",
+        profileImage: "Profile Image",
+        profileBioUpdated: "Your profile bio has been updated.",
+        failedToUpdateProfileBio: "Failed to update profile bio.",
+        saveChanges: "Save Changes",
+        displayName: "Display Name",
+        failedToUpdateProfileName: "Failed to update profile name.",
     },
     group: {
         header: {
@@ -425,5 +484,22 @@ export default {
             button: "Reset Password",
             footer: "© 2025 {appName}. All rights reserved."
         },
+    },
+    users: {
+        unfollow: "Unfollow",
+        unfollowedUser: "You've unfollowed that user.",
+        failedToUnfollowUser: "Something went wrong trying to unfollow.",
+        follow: "Follow",
+        followedUser: "You've followed that user.",
+        failedToFollowUser: "Something went wrong trying to follow.",
+    },
+    replies: {
+        postNotFound: "Post not found",
+        userDoesNotHaveAccessToGroup: "User does not have access to this group",
+        userDoesNotHavePermissionToReplyToPost: "You do not have permission to reply to this post",
+        userDoesNotHavePermissionToDeleteReply: "You do not have permission to delete this reply",
+        userDoesNotHaveAccessToReply: "User does not have access to this reply",
+        replyNotFound: "Reply not found",
+        someoneRepliedToYourPost: "Someone replied to your post titled {title}.",
     }
 } as const;

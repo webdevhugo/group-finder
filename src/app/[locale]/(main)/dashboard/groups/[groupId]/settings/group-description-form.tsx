@@ -17,6 +17,7 @@ import { updateGroupDescriptionAction } from "./actions";
 import { GroupId } from "@/db/schema";
 import { Textarea } from "@/components/ui/textarea";
 import { useServerAction } from "zsa-react";
+import { useScopedI18n } from "@/locales/client";
 
 const updateGroupDescription = z.object({
   description: z.string().min(1).max(750),
@@ -30,7 +31,7 @@ export function GroupDescriptionForm({
   groupId: GroupId;
 }) {
   const { toast } = useToast();
-
+  const t = useScopedI18n('dashboard');
   const form = useForm<z.infer<typeof updateGroupDescription>>({
     resolver: zodResolver(updateGroupDescription),
     defaultValues: {
@@ -43,15 +44,15 @@ export function GroupDescriptionForm({
     {
       onSuccess: () => {
         toast({
-          title: "Update Successful",
-          description: "Your group description has been updated.",
+          title: t('updateSuccessful'),
+          description: t('updateDescriptionSuccessfulDescription'),
         });
       },
       onError: ({ err }) => {
         toast({
-          title: "Uh-oh, something went wrong",
+          title: t('ohSomethingWentWrong'),
           description:
-            err.message || "Your description was not successfully updated.",
+            err.message || t('failedToUpdateGroupDescription'),
           variant: "destructive",
         });
       },
@@ -75,7 +76,7 @@ export function GroupDescriptionForm({
           name="description"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>Group Description</FormLabel>
+              <FormLabel>{t('groupDescription')}</FormLabel>
               <FormControl>
                 <Textarea
                   className="text-base leading-7"
@@ -88,7 +89,7 @@ export function GroupDescriptionForm({
           )}
         />
         <LoaderButton className="w-fit self-end" isLoading={isPending}>
-          Save
+          {t('save')}
         </LoaderButton>
       </form>
     </Form>

@@ -11,6 +11,7 @@ import {
 } from "@/data-access/replies";
 import { createNotification } from "@/data-access/notifications";
 import { PublicError } from "./errors";
+import { getScopedI18n } from "@/locales/server";
 
 export async function getReplyCountUseCase(
   authenticatedUser: UserSession | undefined,
@@ -24,16 +25,17 @@ export async function getRepliesForPostUseCase(
   authenticatedUser: UserSession | undefined,
   postId: number
 ) {
+  const t = await getScopedI18n('replies');
   const post = await getPostById(postId);
 
   if (!post) {
-    throw new PublicError("Post not found");
+    throw new PublicError(t('postNotFound'));
   }
 
   const hasAccess = await hasAccessToGroup(authenticatedUser, post.groupId);
 
   if (!hasAccess) {
-    throw new PublicError("User does not have access to this group");
+    throw new PublicError(t('userDoesNotHaveAccessToGroup'));
   }
 
   const replies = await getRepliesOnPost(postId);
@@ -45,16 +47,17 @@ export async function createReplyUseCase(
   authenticatedUser: UserSession,
   reply: { postId: number; message: string }
 ) {
+  const t = await getScopedI18n('replies');
   const post = await getPostById(reply.postId);
 
   if (!post) {
-    throw new PublicError("Post not found");
+    throw new PublicError(t('postNotFound'));
   }
 
   const hasAccess = await hasAccessToGroup(authenticatedUser, post.groupId);
 
   if (!hasAccess) {
-    throw new PublicError("You do not have permission to reply to this post");
+    throw new PublicError(t('userDoesNotHavePermissionToReplyToPost'));
   }
 
   const createdReply = await createReply({
@@ -71,7 +74,7 @@ export async function createReplyUseCase(
       groupId: post.groupId,
       postId: post.id,
       type: "reply",
-      message: `Someone replied to your post titled ${post.title}.`,
+      message: t('someoneRepliedToYourPost', { title: post.title }),
       createdOn: new Date(),
     });
   }
@@ -83,16 +86,17 @@ export async function deleteReplyUseCase(
   authenticatedUser: UserSession,
   reply: { replyId: number }
 ) {
+  const t = await getScopedI18n('replies');
   const replyToDelete = await getReplyById(reply.replyId);
 
   if (!replyToDelete) {
-    throw new PublicError("Reply not found");
+    throw new PublicError(t('replyNotFound'));
   }
 
   const post = await getPostById(replyToDelete.postId);
 
   if (!post) {
-    throw new PublicError("Post not found");
+    throw new PublicError(t('postNotFound'));
   }
 
   const hasAccess = await isAdminOrOwnerOfGroup(
@@ -101,7 +105,7 @@ export async function deleteReplyUseCase(
   );
 
   if (!hasAccess && replyToDelete.userId !== authenticatedUser.id) {
-    throw new PublicError("User does not have permission to delete this reply");
+    throw new PublicError(t('userDoesNotHavePermissionToDeleteReply'));
   }
 
   await deleteReply(reply.replyId);
@@ -114,13 +118,14 @@ export async function updateReplyUseCase(
     message: string;
   }
 ) {
+  const t = await getScopedI18n('replies');
   const replyAccess = await hasAccessToMutateReply(
     authenticatedUser,
     reply.replyId
   );
 
   if (!replyAccess) {
-    throw new PublicError("User does not have access to this reply");
+    throw new PublicError(t('userDoesNotHaveAccessToReply'));
   }
 
   const updatedReply = await updateReply(reply.replyId, {

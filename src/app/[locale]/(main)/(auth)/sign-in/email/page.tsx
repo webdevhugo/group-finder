@@ -23,27 +23,28 @@ import { signInAction } from "./actions";
 import { LoaderButton } from "@/components/loader-button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
-
+import { useScopedI18n } from "@/locales/client";
 const registrationSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 });
 
 export default function SignInPage() {
+  const t = useScopedI18n('auth.signIn');
   const { toast } = useToast();
 
   const { execute, isPending, error, reset } = useServerAction(signInAction, {
     onError({ err }) {
       toast({
-        title: "Something went wrong",
+        title: t('error.message'),
         description: err.message,
         variant: "destructive",
       });
     },
     onSuccess() {
       toast({
-        title: "Let's Go!",
-        description: "Enjoy your session",
+        title: t('success.title'),
+        description: t('success.description'),
       });
     },
   });
@@ -62,7 +63,7 @@ export default function SignInPage() {
 
   return (
     <div className="py-24 mx-auto max-w-[400px] space-y-6">
-      <h1 className={cn(pageTitleStyles, "text-center")}>Sign In</h1>
+      <h1 className={cn(pageTitleStyles, "text-center")}>{t('title')}</h1>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -71,12 +72,12 @@ export default function SignInPage() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t('email')}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     className="w-full"
-                    placeholder="Enter your email"
+                    placeholder={t('emailPlaceholder')}
                     type="email"
                   />
                 </FormControl>
@@ -90,12 +91,12 @@ export default function SignInPage() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t('password')}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     className="w-full"
-                    placeholder="Enter your password"
+                    placeholder={t('passwordPlaceholder')}
                     type="password"
                   />
                 </FormControl>
@@ -107,20 +108,20 @@ export default function SignInPage() {
           {error && (
             <Alert variant="destructive">
               <Terminal className="h-4 w-4" />
-              <AlertTitle>Uh-oh, we couldn&apos;t log you in</AlertTitle>
+              <AlertTitle>{t('error.title')}</AlertTitle>
               <AlertDescription>{error.message}</AlertDescription>
             </Alert>
           )}
 
           <LoaderButton isLoading={isPending} className="w-full" type="submit">
-            Sign In
+            {t('button')}
           </LoaderButton>
         </form>
       </Form>
 
       <div className="flex justify-center">
         <Button asChild variant="link">
-          <Link href="/sign-in/forgot-password">Forgot Password</Link>
+          <Link href="/sign-in/forgot-password">{t('forgotPassword')}</Link>
         </Button>
       </div>
 
@@ -130,13 +131,13 @@ export default function SignInPage() {
         </div>
         <div className="relative flex justify-center text-xs uppercase">
           <span className="bg-gray-100 px-2 text-gray-500 dark:bg-gray-950 dark:text-gray-400">
-            Or
+            {t('or')}
           </span>
         </div>
       </div>
 
       <Button className="w-full" variant={"secondary"}>
-        <Link href="/sign-up">Create an account</Link>
+        <Link href="/sign-up">{t('createAccount')}</Link>
       </Button>
     </div>
   );

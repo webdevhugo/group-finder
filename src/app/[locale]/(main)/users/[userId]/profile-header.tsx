@@ -11,12 +11,13 @@ import { isFollowingUserUseCase } from "@/use-cases/following";
 import { UnfollowButton } from "./unfollow-button";
 import { cn } from "@/lib/utils";
 import { UserId } from "@/use-cases/types";
+import { getScopedI18n } from "@/locales/server";
 
 export async function ProfileHeader({ userId }: { userId: UserId }) {
   const user = await getCurrentUser();
   const profile = await getUserProfileUseCase(userId);
   const isOwnProfile = user?.id === userId;
-
+  const t = await getScopedI18n('profile.header');
   const isFollowingUser = user
     ? await isFollowingUserUseCase(user, userId)
     : false;
@@ -49,7 +50,7 @@ export async function ProfileHeader({ userId }: { userId: UserId }) {
           {isOwnProfile && (
             <Button asChild className={btnStyles}>
               <Link href={`/dashboard/settings/profile`}>
-                <SquareUser className={btnIconStyles} /> Edit your Profile
+                <SquareUser className={btnIconStyles} /> {t('editProfile')}
               </Link>
             </Button>
           )}

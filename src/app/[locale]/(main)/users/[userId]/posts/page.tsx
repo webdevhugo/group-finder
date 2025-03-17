@@ -3,6 +3,7 @@ import { UserPostCard } from "./user-post-card";
 import Image from "next/image";
 import { cardStyles } from "@/styles/common";
 import { cn } from "@/lib/utils";
+import { getScopedI18n } from "@/locales/server";
 
 export default async function PostsContent({
   params,
@@ -12,7 +13,7 @@ export default async function PostsContent({
   const { userId } = await params;
   const userIdInt = parseInt(userId);
   const posts = await getPublicPostsByUserUseCase(userIdInt);
-
+  const t = await getScopedI18n('profile');
   return (
     <div className="space-y-12">
       {posts.length === 0 && (
@@ -28,7 +29,7 @@ export default async function PostsContent({
             height="200"
             alt="no gruops placeholder image"
           ></Image>
-          <h2 className="text-2xl">This user has no posts yet</h2>
+          <h2 className="text-2xl">{t('noPosts')}</h2>
         </div>
       )}
       <div className="space-y-8">

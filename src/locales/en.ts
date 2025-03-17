@@ -236,6 +236,26 @@ export default {
                 errorMessage: "Failed to send invite.",
             },
         },
+        join: {
+            button: "Join Group",
+            success: {
+                title: "Success",
+                description: "You joined this group."
+            }
+        },
+        leave: {
+            button: "Leave Group",
+            dialog: {
+                title: "Leave Group",
+                description: "Are you sure you want to leave this group? If it was a private group an admin will need to reinvite you.",
+                cancel: "Cancel",
+                confirm: "Yes, leave group"
+            },
+            success: {
+                title: "Success",
+                description: "You left this group."
+            }
+        }
     },
     profile: {
         settings: {
@@ -268,16 +288,25 @@ export default {
     },
     email: {
         invite: {
-            previewText: "You've been invited to a group!",
-            inviteText: "You've been invited to a group on groupfinder.com called",
-            loginButton: "Login to View Group",
-            rights: "All rights reserved.",
+            preview: "You've been invited to a group!",
+            message: "You've been invited to a group on groupfinder.com called {groupName}. Click the link below to login and access your group.",
+            actionButton: "Login to View Group",
+            footer: "© 2024 {appName}. All rights reserved."
         },
+        magicLink: {
+            preview: "You've been invited to a group!",
+            message: "Your magic link login is below, click to login.",
+            button: "Login using Magic Link",
+            footer: "© 2024 {appName}. All rights reserved."
+        }
     },
     notifications: {
         title: "Your Notifications",
         empty: "You have no notifications",
         markAllRead: "Mark all as read",
+        viewAll: "View Notifications",
+        headerTitle: "Notifications",
+        dropdownEmpty: "No new notifications",
         clearRead: "Clear read notifications",
         success: "Success",
         markedAsRead: "All messages were marked as read.",
@@ -290,9 +319,111 @@ export default {
         read: "Read"
     },
     error: {
+        auth: {
+            authentication: "You must be logged in to view this content",
+            privateGroup: "You do not have permission to view this group",
+            notFound: "Not found"
+        },
+        user: {
+            deleteAccount: "You can only delete your own account",
+            notFound: "User not found",
+            emailExists: "An user with that email already exists.",
+            invalidToken: "Invalid token",
+            loginError: "Invalid email or password"
+        },
+        file: {
+            notImage: "File should be an image.",
+            tooLarge: "File size should be less than {maxSize}MB."
+        },
         authTitle: "Oops! You Need to Be Logged In",
         authMessage: "To access this page, please log in first.",
         signIn: "Sign In",
         genericTitle: "Oops! Something went wrong"
     },
+    auth: {
+        signIn: {
+            title: "Sign In",
+            description: "Sign in to your account using one of the options below.",
+            email: "Email",
+            emailPlaceholder: "Enter your email",
+            password: "Password",
+            passwordPlaceholder: "Enter your password",
+            button: "Sign In",
+            forgotPassword: "Forgot Password",
+            createAccount: "Create an account",
+            or: "Or",
+            signInWithEmail: "Sign in with email",
+            orSignInWithEmail: "Or sign in with email",
+            signInWithMagicLink: "Sign in with magic link",
+            google: "Sign in with Google",
+            github: "Sign in with GitHub",
+            otherOptions: "Other options",
+            error: {
+                title: "Uh-oh, we couldn't log you in",
+                message: "Something went wrong",
+            },
+            success: {
+                title: "Let's Go!",
+                description: "Enjoy your session"
+            }
+        },
+        signUp: {
+            title: "Sign Up",
+            email: "Email",
+            emailPlaceholder: "Enter your email",
+            password: "Password",
+            passwordPlaceholder: "Enter your password",
+            confirmPassword: "Confirm Password",
+            confirmPasswordPlaceholder: "Confirm your password",
+            button: "Register",
+            error: {
+                title: "Uh-oh, we couldn't sign you up",
+                message: "Something went wrong",
+                passwordMatch: "Passwords don't match"
+            },
+            validation: {
+                invalidEmail: "Please enter a valid email address",
+                passwordTooShort: "Password must be at least 8 characters",
+            }
+        },
+        signOut: {
+            title: "Successfully Signed Out",
+            description: "You have been successfully signed out. You can now sign in to your account.",
+            button: "Sign In"
+        },
+        forgotPassword: {
+            title: "Forgot Password",
+            button: "Send Reset Email",
+            email: "Email",
+            emailPlaceholder: "Enter your email",
+            success: {
+                title: "Reset link sent",
+                description: "We have sent you an email with a link to reset your password."
+            }
+        },
+        magicLink: {
+            title: "Check your email",
+            description: "We sent you a magic link to sign in. Click the link in your email to sign in.",
+            error: {
+                title: "Expired Token",
+                description: "Sorry, this token was either expired or already used. Please try logging in again",
+                button: "Sign In"
+            }
+        },
+        verify: {
+            title: "Email Successfully Verified",
+            description: "Your email has been successfully verified. You can now sign in to your account.",
+            button: "Sign In",
+            preview: "Verify your Email",
+            message: "Click the following link to verify your email",
+            footer: "© 2025 {appName}. All rights reserved.",
+            verifyButton: "Verify Email"
+        },
+        resetPassword: {
+            preview: "Reset your password",
+            message: "Click the following link to reset your password",
+            button: "Reset Password",
+            footer: "© 2025 {appName}. All rights reserved."
+        },
+    }
 } as const;

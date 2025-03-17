@@ -1,18 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { pageTitleStyles } from "@/styles/common";
 import Link from "next/link";
+import { getScopedI18n } from "@/locales/server";
 
-export default function MagicLinkPage() {
+export default async function MagicLinkPage() {
+  const t = await getScopedI18n('auth.magicLink.error');
   return (
     <div className="py-24 mx-auto max-w-[400px] space-y-6">
-      <h1 className={pageTitleStyles}>Expired Token</h1>
+      <h1 className={pageTitleStyles}>{t('title')}</h1>
       <p className="text-xl">
-        Sorry, this token was either expired or already used. Please try logging
-        in again
+        {t('description')}
       </p>
 
       <Button asChild>
-        <Link href="/sign-in">Sign In</Link>
+        <Link href="/sign-in">{t('button')}</Link>
       </Button>
     </div>
   );

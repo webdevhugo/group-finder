@@ -1,12 +1,14 @@
 import { pageTitleStyles } from "@/styles/common";
+import { getScopedI18n } from "@/locales/server";
 
-export default function MagicLinkPage() {
+export default async function MagicLinkPage() {
+  const t = await getScopedI18n('auth.magicLink');
+
   return (
     <div className="py-24 mx-auto max-w-[400px] space-y-6">
-      <h1 className={pageTitleStyles}>Check your email</h1>
+      <h1 className={pageTitleStyles}>{t('title')}</h1>
       <p className="text-xl">
-        We sent you a magic link to sign in. Click the link in your email to
-        sign in.
+        {t('description')}
       </p>
     </div>
   );

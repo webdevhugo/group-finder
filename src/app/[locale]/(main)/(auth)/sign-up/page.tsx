@@ -21,30 +21,31 @@ import { LoaderButton } from "@/components/loader-button";
 import { useToast } from "@/components/ui/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
-
-const registrationSchema = z
-  .object({
-    email: z.string().email(),
-    password: z.string().min(8),
-    passwordConfirmation: z.string().min(8),
-  })
-  .refine((data) => data.password === data.passwordConfirmation, {
-    message: "Passwords don't match",
-    path: ["passwordConfirmation"],
-  });
+import { useScopedI18n } from "@/locales/client";
 
 export default function RegisterPage() {
   const { toast } = useToast();
-
+  const t = useScopedI18n('auth.signUp');
   const { execute, isPending, error } = useServerAction(signUpAction, {
     onError({ err }) {
       toast({
-        title: "Something went wrong",
+        title: t('error.message'),
         description: err.message,
         variant: "destructive",
       });
     },
   });
+
+  const registrationSchema = z
+  .object({
+    email: z.string().email(t('validation.invalidEmail')),
+    password: z.string().min(8, t('validation.passwordTooShort')),
+    passwordConfirmation: z.string().min(8, t('validation.passwordTooShort')),
+  })
+    .refine((data) => data.password === data.passwordConfirmation, {
+      message: t('error.passwordMatch'),
+      path: ["passwordConfirmation"],
+    });
 
   const form = useForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(registrationSchema),
@@ -61,7 +62,7 @@ export default function RegisterPage() {
 
   return (
     <div className="py-24 mx-auto max-w-[400px] space-y-6">
-      <h1 className={cn(pageTitleStyles, "text-center")}>Sign Up</h1>
+      <h1 className={cn(pageTitleStyles, "text-center")}>{t('title')}</h1>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -70,12 +71,12 @@ export default function RegisterPage() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t('email')}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     className="w-full"
-                    placeholder="Enter your email"
+                    placeholder={t('emailPlaceholder')}
                     type="email"
                   />
                 </FormControl>
@@ -89,12 +90,12 @@ export default function RegisterPage() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t('password')}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     className="w-full"
-                    placeholder="Enter your password"
+                    placeholder={t('passwordPlaceholder')}
                     type="password"
                   />
                 </FormControl>
@@ -108,12 +109,12 @@ export default function RegisterPage() {
             name="passwordConfirmation"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Confirm Password</FormLabel>
+                <FormLabel>{t('confirmPassword')}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     className="w-full"
-                    placeholder="Enter Confirm your Password"
+                    placeholder={t('confirmPasswordPlaceholder')}
                     type="password"
                   />
                 </FormControl>
@@ -125,13 +126,13 @@ export default function RegisterPage() {
           {error && (
             <Alert variant="destructive">
               <Terminal className="h-4 w-4" />
-              <AlertTitle>Uh-oh, we couldn&apos;t log you in</AlertTitle>
+              <AlertTitle>{t('error.title')}</AlertTitle>
               <AlertDescription>{error.message}</AlertDescription>
             </Alert>
           )}
 
           <LoaderButton isLoading={isPending} className="w-full" type="submit">
-            Register
+            {t('button')}
           </LoaderButton>
         </form>
       </Form>

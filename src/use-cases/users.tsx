@@ -31,8 +31,8 @@ import {
   getProfile,
   updateProfile,
 } from "@/data-access/profiles";
-import { GoogleUser } from "@/app/[locale]/(main)/api/login/google/callback/route";
-import { GitHubUser } from "@/app/[locale]/(main)/api/login/github/callback/route";
+import { GoogleUser } from "@/app/api/login/google/callback/route";
+import { GitHubUser } from "@/app/api/login/github/callback/route";
 import { sendEmail } from "@/lib/send-email";
 import {
   createPasswordResetToken,
@@ -53,13 +53,15 @@ import {
 import { createTransaction } from "@/data-access/utils";
 import { LoginError, PublicError } from "./errors";
 import { deleteSessionForUser } from "@/data-access/sessions";
+import { getScopedI18n } from "@/locales/server";
 
 export async function deleteUserUseCase(
   authenticatedUser: UserSession,
   userToDeleteId: UserId
 ): Promise<void> {
+  const t = await getScopedI18n('error.user');
   if (authenticatedUser.id !== userToDeleteId) {
-    throw new PublicError("You can only delete your own account");
+    throw new PublicError(t('deleteAccount'));
   }
 
   await deleteUser(userToDeleteId);
@@ -67,18 +69,20 @@ export async function deleteUserUseCase(
 
 export async function getUserProfileUseCase(userId: UserId) {
   const profile = await getProfile(userId);
+  const t = await getScopedI18n('error.user');
 
   if (!profile) {
-    throw new PublicError("User not found");
+    throw new PublicError(t('notFound'));
   }
 
   return profile;
 }
 
 export async function registerUserUseCase(email: string, password: string) {
+  const t = await getScopedI18n('error.user');
   const existingUser = await getUserByEmail(email);
   if (existingUser) {
-    throw new PublicError("An user with that email already exists.");
+    throw new PublicError(t('emailExists'));
   }
   const user = await createUser(email);
   await createAccount(user.id, password);
@@ -128,14 +132,13 @@ export function getProfileImageKey(userId: UserId, imageId: string) {
 }
 
 export async function updateProfileImageUseCase(file: File, userId: UserId) {
+  const t = await getScopedI18n('error.file');
   if (!file.type.startsWith("image/")) {
-    throw new PublicError("File should be an image.");
+    throw new PublicError(t('notImage'));
   }
 
   if (file.size > MAX_UPLOAD_IMAGE_SIZE) {
-    throw new PublicError(
-      `File size should be less than ${MAX_UPLOAD_IMAGE_SIZE_IN_MB}MB.`
-    );
+    throw new PublicError(t('tooLarge', { maxSize: MAX_UPLOAD_IMAGE_SIZE_IN_MB }));
   }
 
   const imageId = createUUID();
@@ -222,10 +225,11 @@ export async function resetPasswordUseCase(email: string) {
 }
 
 export async function changePasswordUseCase(token: string, password: string) {
+  const t = await getScopedI18n('error.user');
   const tokenEntry = await getPasswordResetToken(token);
 
   if (!tokenEntry) {
-    throw new PublicError("Invalid token");
+    throw new PublicError(t('invalidToken'));
   }
 
   const userId = tokenEntry.userId;
@@ -238,10 +242,11 @@ export async function changePasswordUseCase(token: string, password: string) {
 }
 
 export async function verifyEmailUseCase(token: string) {
+  const t = await getScopedI18n('error.user');
   const tokenEntry = await getVerifyEmailToken(token);
 
   if (!tokenEntry) {
-    throw new PublicError("Invalid token");
+    throw new PublicError(t('invalidToken'));
   }
 
   const userId = tokenEntry.userId;

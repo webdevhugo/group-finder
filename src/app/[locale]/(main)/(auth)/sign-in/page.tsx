@@ -7,15 +7,18 @@ import { btnStyles } from "@/styles/icons";
 import { Mail } from "lucide-react";
 import Link from "next/link";
 import { MagicLinkForm } from "./magic-link-form";
+import { useScopedI18n } from "@/locales/client";
 
 export default function SignInPage() {
+  const t = useScopedI18n('auth.signIn');
+
   return (
     <div className="py-24 flex min-h-[80dvh] items-center justify-center mx-auto">
       <div className="mx-auto max-w-md space-y-6">
         <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-bold">Sign In</h1>
+          <h1 className="text-3xl font-bold">{t('title')}</h1>
           <p className="text-gray-500 dark:text-gray-400">
-            Sign in to your account using one of the options below.
+            {t('description')}
           </p>
         </div>
         <div className="space-y-4">
@@ -29,7 +32,7 @@ export default function SignInPage() {
             )}
           >
             <GoogleIcon className="stroke-white mr-2 h-5 w-5" />
-            Sign in with Google
+            {t('google')}
           </Link>
           <Link
             href="/api/login/github"
@@ -41,7 +44,7 @@ export default function SignInPage() {
             )}
           >
             <GithubIcon className="mr-2 h-5 w-5" />
-            Sign in with GitHub
+            {t('github')}
           </Link>
 
           <div className="relative py-4">
@@ -50,7 +53,7 @@ export default function SignInPage() {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-gray-100 px-2 text-gray-500 dark:bg-gray-950 dark:text-gray-400">
-                Or sign in with email
+                {t('orSignInWithEmail')}
               </span>
             </div>
           </div>
@@ -63,7 +66,7 @@ export default function SignInPage() {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-gray-100 px-2 text-gray-500 dark:bg-gray-950 dark:text-gray-400">
-                Other options
+                {t('otherOptions')}
               </span>
             </div>
           </div>
@@ -71,7 +74,7 @@ export default function SignInPage() {
           <div className="flex justify-center">
             <Button asChild variant="ghost" className={cn(btnStyles, "w-full")}>
               <Link href="/sign-in/email">
-                <Mail /> Sign in with Email
+                <Mail /> {t('signInWithEmail')}
               </Link>
             </Button>
           </div>

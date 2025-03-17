@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Profile } from "@/db/schema";
 import { getFollowersForUserUseCase } from "@/use-cases/following";
 import Image from "next/image";
-
+import { getScopedI18n } from "@/locales/server";
 function FollowerCard({ profile }: { profile: Profile }) {
   return (
     <div key={profile.userId} className="flex items-center gap-4">
@@ -28,7 +28,7 @@ export default async function FollowersPage({
   const { userId } = await params;
   const userIdInt = parseInt(userId);
   const followers = await getFollowersForUserUseCase(userIdInt);
-
+  const t = await getScopedI18n('profile');
   return (
     <div className="space-y-8">
       {followers.length === 0 && (
@@ -39,7 +39,7 @@ export default async function FollowersPage({
             height="200"
             alt="no gruops placeholder image"
           ></Image>
-          <h2 className="text-2xl">This user no followers</h2>
+          <h2 className="text-2xl">{t('noFollowers')}</h2>
         </div>
       )}
 

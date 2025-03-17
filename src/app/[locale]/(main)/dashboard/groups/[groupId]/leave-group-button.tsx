@@ -19,16 +19,18 @@ import { DoorOpen } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useServerAction } from "zsa-react";
+import { useScopedI18n } from "@/locales/client";
 
 export function LeaveGroupButton() {
   const { toast } = useToast();
   const { groupId } = useParams<{ groupId: string }>();
   const [isOpen, setIsOpen] = useState(false);
+  const t = useScopedI18n('group.leave');
   const { execute, status } = useServerAction(leaveGroupAction, {
     onSuccess() {
       toast({
-        title: "Success",
-        description: "You left this group.",
+        title: t('success.title'),
+        description: t('success.description'),
       });
     },
   });
@@ -37,20 +39,19 @@ export function LeaveGroupButton() {
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <Button variant={"destructive"} size={"sm"} className={btnStyles}>
-          <DoorOpen className={btnIconStyles} /> Leave Group
+          <DoorOpen className={btnIconStyles} /> {t('button')}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Leave Group</AlertDialogTitle>
+          <AlertDialogTitle>{t('dialog.title')}</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to leave this group? If it was a private group
-            an admin will need to reinvite you.
+            {t('dialog.description')}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{t('dialog.cancel')}</AlertDialogCancel>
           <LoaderButton
             variant={"destructive"}
             isLoading={status === "pending"}
@@ -58,7 +59,7 @@ export function LeaveGroupButton() {
               execute(parseInt(groupId));
             }}
           >
-            Yes, leave group
+            {t('dialog.confirm')}
           </LoaderButton>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -16,14 +16,17 @@ import {
 
 import { env } from "@/env";
 import { applicationName } from "@/app-config";
+import { getScopedI18n } from "@/locales/server";
 
 export const BASE_URL = env.HOST_NAME;
 
-export function VerifyEmail({ token }: { token: string }) {
+export async function VerifyEmail({ token }: { token: string }) {
+  const t = await getScopedI18n('auth.verify');
+
   return (
     <Html>
       <Head />
-      <Preview>Verify your Email</Preview>
+      <Preview>{t('preview')}</Preview>
       <Tailwind>
         <React.Fragment>
           <Body className="bg-white my-auto mx-auto font-sans">
@@ -40,7 +43,7 @@ export function VerifyEmail({ token }: { token: string }) {
 
               <Section className="text-center mt-[32px] mb-[32px]">
                 <Text className="text-black font-medium text-[14px] leading-[24px] mb-8">
-                  Click the following link to verify your email
+                  {t('message')}
                 </Text>
 
                 <Text className="text-black font-medium text-[14px] leading-[24px]">
@@ -49,7 +52,7 @@ export function VerifyEmail({ token }: { token: string }) {
                     target="_blank"
                     className="text-[#2754C5] underline"
                   >
-                    Verify Email
+                    {t('verifyButton')}
                   </Link>
                 </Text>
               </Section>
@@ -57,7 +60,7 @@ export function VerifyEmail({ token }: { token: string }) {
               <Hr className="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
 
               <Text className="text-[#666666] text-[12px] leading-[24px] flex items-center justify-center">
-                © 2024 {applicationName}. All rights reserved.
+                {t('footer', { appName: applicationName })}
               </Text>
             </Container>
           </Body>

@@ -16,11 +16,12 @@ import {
 
 import { env } from "@/env";
 import { applicationName } from "@/app-config";
-
+import { getScopedI18n } from "@/locales/server";
 export const BASE_URL = env.HOST_NAME;
 
-export function MagicLinkEmail({ token }: { token: string }) {
-  const previewText = `You're been invted to a group!`;
+export async function MagicLinkEmail({ token }: { token: string }) {
+  const t = await getScopedI18n('email.magicLink');
+  const previewText = t('preview');
   return (
     <Html>
       <Head />
@@ -41,7 +42,7 @@ export function MagicLinkEmail({ token }: { token: string }) {
 
               <Section className="text-center mt-[32px] mb-[32px]">
                 <Text className="text-black font-medium text-[14px] leading-[24px] mb-8">
-                  You&apos;re magic link login is below, click to login. group.
+                  {t('message')}
                 </Text>
 
                 <Text className="text-black font-medium text-[14px] leading-[24px]">
@@ -50,7 +51,7 @@ export function MagicLinkEmail({ token }: { token: string }) {
                     target="_blank"
                     className="text-[#2754C5] underline"
                   >
-                    Login using Magic Link
+                    {t('button')}
                   </Link>
                 </Text>
               </Section>
@@ -58,7 +59,7 @@ export function MagicLinkEmail({ token }: { token: string }) {
               <Hr className="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
 
               <Text className="text-[#666666] text-[12px] leading-[24px] flex items-center justify-center">
-                © 2024 {applicationName}. All rights reserved.
+                {t('footer', { appName: applicationName })}
               </Text>
             </Container>
           </Body>

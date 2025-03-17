@@ -15,6 +15,7 @@ import { signInMagicLinkAction } from "./actions";
 import { LoaderButton } from "@/components/loader-button";
 import { useServerAction } from "zsa-react";
 import { useToast } from "@/components/ui/use-toast";
+import { useScopedI18n } from "@/locales/client";
 
 const magicLinkSchema = z.object({
   email: z.string().email(),
@@ -22,11 +23,11 @@ const magicLinkSchema = z.object({
 
 export function MagicLinkForm() {
   const { toast } = useToast();
-
+  const t = useScopedI18n('auth.signIn');
   const { execute, isPending } = useServerAction(signInMagicLinkAction, {
     onError({ err }) {
       toast({
-        title: "Something went wrong",
+        title: t('error.message'),
         description: err.message,
         variant: "destructive",
       });
@@ -52,12 +53,12 @@ export function MagicLinkForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t('email')}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
                   className="w-full"
-                  placeholder="Enter your email"
+                  placeholder={t('emailPlaceholder')}
                   type="email"
                 />
               </FormControl>
@@ -66,7 +67,7 @@ export function MagicLinkForm() {
           )}
         />
         <LoaderButton isLoading={isPending} className="w-full" type="submit">
-          Sign in with magic link
+          {t('signInWithMagicLink')}
         </LoaderButton>
       </form>
     </Form>

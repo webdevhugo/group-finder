@@ -21,14 +21,14 @@ import { useServerAction } from "zsa-react";
 import { LoaderButton } from "@/components/loader-button";
 import { resetPasswordAction } from "./actions";
 import { useToast } from "@/components/ui/use-toast";
-
+import { useScopedI18n } from "@/locales/client";
 const registrationSchema = z.object({
   email: z.string().email(),
 });
 
 export default function ForgotPasswordPage() {
   const { toast } = useToast();
-
+  const t = useScopedI18n('auth.forgotPassword');
   const { execute, isPending, isSuccess } = useServerAction(
     resetPasswordAction,
     {
@@ -55,14 +55,14 @@ export default function ForgotPasswordPage() {
 
   return (
     <div className="py-24 mx-auto max-w-[400px] space-y-6">
-      <h1 className={cn(pageTitleStyles, "text-center")}>Forgot Password</h1>
+      <h1 className={cn(pageTitleStyles, "text-center")}>{t('title')}</h1>
 
       {isSuccess && (
         <Alert variant="success">
           <Terminal className="h-4 w-4" />
-          <AlertTitle>Reset link sent</AlertTitle>
+          <AlertTitle>{t('success.title')}</AlertTitle>
           <AlertDescription>
-            We have sent you an email with a link to reset your password.
+            {t('success.description')}
           </AlertDescription>
         </Alert>
       )}
@@ -74,12 +74,12 @@ export default function ForgotPasswordPage() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t('email')}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     className="w-full"
-                    placeholder="Enter your email"
+                    placeholder={t('emailPlaceholder')}
                     type="email"
                   />
                 </FormControl>
@@ -89,7 +89,7 @@ export default function ForgotPasswordPage() {
           />
 
           <LoaderButton isLoading={isPending} className="w-full" type="submit">
-            Send Reset Email
+            {t('button')}
           </LoaderButton>
         </form>
       </Form>

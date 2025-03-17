@@ -1,6 +1,7 @@
 import { GroupCard } from "@/app/[locale]/(main)/dashboard/group-card";
 import { getPublicGroupsByUserIdUseCase } from "@/use-cases/groups";
 import Image from "next/image";
+import { getScopedI18n } from "@/locales/server";
 
 export default async function GroupsContent({
   params,
@@ -10,7 +11,7 @@ export default async function GroupsContent({
   const { userId } = await params;
   const userIdInt = parseInt(userId);
   const userGroups = await getPublicGroupsByUserIdUseCase(userIdInt);
-
+  const t = await getScopedI18n('profile');
   return (
     <div className="space-y-8">
       {userGroups.length === 0 && (
@@ -23,7 +24,7 @@ export default async function GroupsContent({
             className="w-full max-w-[200px] h-auto"
           />
           <h2 className="text-2xl text-center px-4">
-            This user isn't part of any groups
+            {t('noGroups')}
           </h2>
         </div>
       )}
@@ -34,7 +35,7 @@ export default async function GroupsContent({
             memberCount={group.memberCount.toString()}
             group={group}
             key={group.id}
-            buttonText="View Group"
+            buttonText={t('viewGroup')}
           />
         ))}
       </div>

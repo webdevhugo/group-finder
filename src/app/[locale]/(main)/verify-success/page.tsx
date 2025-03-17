@@ -1,18 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { pageTitleStyles } from "@/styles/common";
 import Link from "next/link";
+import { useScopedI18n } from "@/locales/client";
 
 export default function VerifySuccess() {
+  const t = useScopedI18n('auth.verify');
+
   return (
     <div className="py-24 mx-auto max-w-[400px] space-y-6">
-      <h1 className={pageTitleStyles}>Email Successfully Verified</h1>
+      <h1 className={pageTitleStyles}>{t('title')}</h1>
       <p className="text-xl">
-        Your email has been successfully verified. You can now sign in to your
-        account.
+        {t('description')}
       </p>
 
       <Button asChild>
-        <Link href="/sign-in">Sign In</Link>
+        <Link href="/sign-in">{t('button')}</Link>
       </Button>
     </div>
   );

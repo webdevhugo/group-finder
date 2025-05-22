@@ -47,7 +47,7 @@ export async function Footer() {
               </ul>
             </div>
           </div>
-          <div className="mt-8 flex justify-center gap-2">
+          <div className="mt-8 flex justify-center gap-4">
             <ModeToggle />
             <LanguageToggle />
           </div>

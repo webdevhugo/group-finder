@@ -12,6 +12,7 @@ import { UnfollowButton } from "./unfollow-button";
 import { cn } from "@/lib/utils";
 import { UserId } from "@/use-cases/types";
 import { getScopedI18n } from "@/locales/server";
+import { getProfileImageFullUrl } from "../../dashboard/settings/profile/profile-image";
 
 export async function ProfileHeader({ userId }: { userId: UserId }) {
   const user = await getCurrentUser();
@@ -29,15 +30,16 @@ export async function ProfileHeader({ userId }: { userId: UserId }) {
       <div className="container mx-auto">
         <div className="flex justify-between items-center">
           <div className="flex flex-col items-center md:flex-row gap-8">
-            <Image
-              src={profile.image ?? "/group.jpeg"}
-              width={60}
-              height={60}
-              alt="image of the group"
-              className="rounded-full object-cover h-[60px]"
-            />
-
-            <h1 className={pageTitleStyles}>{profile.displayName} </h1>
+          <Image
+							src={getProfileImageFullUrl(profile)}
+							width={60}
+							height={60}
+							alt="image of the group"
+							className="rounded-full object-cover h-[60px]"
+						/>
+						<h1 className={pageTitleStyles}>
+							{profile.displayName}{" "}
+						</h1>
           </div>
 
           {shouldShowFollowButtons &&

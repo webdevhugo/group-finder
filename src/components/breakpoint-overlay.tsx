@@ -1,7 +1,11 @@
 "use client";
 
 export function BreakpointOverlay() {
-  if (process.env.NEXT_PUBLIC_IS_LOCAL !== "true") return null;
+  if (
+    process.env.NEXT_PUBLIC_IS_LOCAL !== "true" ||
+    process.env.NODE_ENV === "production"
+  )
+    return null
 
   return (
     <div className="fixed bottom-2 right-2 bg-yellow-300/50 bg-opacity-75 text-white px-2 py-1 rounded-md text-sm z-50">

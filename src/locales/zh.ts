@@ -42,8 +42,6 @@ export default {
         legal: "法律",
         privacyPolicy: "隐私政策",
         termsOfService: "服务条款",
-        rights: "是依法受到法律保护的注册商标，任何人不得以任何形式，未经书面授权使用本商标，否则将依法追究法律责任。",
-        rightsChina: "中国境内的AIGC项目由沸腾宇宙（深圳）影业有限公司提供技术支持，以符合中国法律监管要求"
     },
     menu: {
         yourGroups: "您的小组",
@@ -350,13 +348,13 @@ export default {
             preview: "您收到了一个群组邀请！",
             message: "您被邀请加入 groupfinder.com 上的群组 {groupName}。点击下方链接登录并访问您的群组。",
             actionButton: "登录查看群组",
-            footer: "© 2024 {appName}。保留所有权利。"
+            footer: "© 2025 {appName}。保留所有权利。"
         },
         magicLink: {
             preview: "您收到了一个群组邀请！",
             message: "您的登录链接在下方，点击即可登录。",
             button: "使用链接登录",
-            footer: "© 2024 {appName}。保留所有权利。"
+            footer: "© 2025 {appName}。保留所有权利。"
         }
     },
     notifications: {

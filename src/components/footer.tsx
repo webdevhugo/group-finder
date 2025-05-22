@@ -5,6 +5,7 @@ import { LanguageToggle } from "@/components/language-toggle";
 import { getScopedI18n } from "@/locales/server";
 
 export async function Footer() {
+  const year = new Date().getFullYear();
   const t = await getScopedI18n("footer");
 
   return (
@@ -23,7 +24,7 @@ export async function Footer() {
               </h3>
               <ul className="text-gray-500 dark:text-gray-400">
                 <li className="mb-4">
-                  <a href="#" className="hover:underline">
+                  <a href="https://x.com/hhwjsw711" target="_blank" className="hover:underline">
                     {t("twitter")}
                   </a>
                 </li>
@@ -56,7 +57,8 @@ export async function Footer() {
       <footer className="py-8 px-5 border-t">
         <div className="text-center">
           <span className="block text-sm text-center text-gray-500 dark:text-gray-400">
-            <Link href="/">{companyName}</Link> {t("rights")} <br className="hidden md:block" /> {t("rightsChina")}
+            © {year} <Link href="/">{applicationName}</Link>. All Rights Reserved.
+            Built with ❤️ by {companyName}
           </span>
         </div>
       </footer>

@@ -34,7 +34,7 @@ export async function Header() {
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/group.jpeg"
-              alt="Group Finder Logo"
+              alt="The Group Finder Logo"
               width={40}
               height={40}
               className="rounded-full"

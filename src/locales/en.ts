@@ -42,8 +42,6 @@ export default {
         legal: "Legal",
         privacyPolicy: "Privacy Policy",
         termsOfService: "Terms of Service",
-        rights: "is a registered trademark protected by law. No one may use this trademark in any form without written authorization; otherwise, legal action will be pursued in accordance with the law.",
-        rightsChina: "AIGC projects in Mainland China are provided by Boiling Universe (Shenzhen) Film and Television Co., Ltd. to comply with Chinese legal regulations.",
     },
     menu: {
         yourGroups: "Your Groups",
@@ -350,13 +348,13 @@ export default {
             preview: "You've been invited to a group!",
             message: "You've been invited to a group on groupfinder.com called {groupName}. Click the link below to login and access your group.",
             actionButton: "Login to View Group",
-            footer: "© 2024 {appName}. All rights reserved."
+            footer: "© 2025 {appName}. All rights reserved."
         },
         magicLink: {
             preview: "You've been invited to a group!",
             message: "Your magic link login is below, click to login.",
             button: "Login using Magic Link",
-            footer: "© 2024 {appName}. All rights reserved."
+            footer: "© 2025 {appName}. All rights reserved."
         }
     },
     notifications: {

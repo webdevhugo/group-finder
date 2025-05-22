@@ -31,25 +31,25 @@ export const metadata: Metadata = {
     { rel: "icon", type: "image/png", sizes: "48x48", url: "/favicon.ico" },
   ],
   keywords:
-    "next.js, starter kit, saas, ecommerce, digital products, saas code kit, indie hacking, indie hacker kit, micro saas, entrepreneurship, Code Starter Kit, SaaS Product Launch, Code Documentation Tutorial, Beginner Coding Kit, Start-up SaaS Kit, Coding Guides and Resources, Video Tutorials for Coding, Beginner SaaS Guide, Launch your First SaaS, Step-by-step Coding Kit, SaaS Launch Kit, Software as a Service Starter, Easy Code Launch Kit, Coding Skills for SaaS, Starter Kit for SaaS, Code, Document, Launch, Comprehensive Coding Starter Kit, Master SaaS Product Launch, SaaS Documentation Tutorial, First-Time Coders Kit, SaaS coding course, Initiate SaaS Journey, Seamless SaaS Launch Guide, First SaaS Product Guidance, Bootstrap SaaS Tutorial, Ultimate SaaS Starter Pack, Learning Guide for SaaS, DIY SaaS Kit, Code your SaaS Product, All-in-one Coding Starter Kit",
+    "group finder, group, community, social, interest group, event, meetup, hobby, join group, manage group, online community, social platform, group management, group search, 社群, 群组, 兴趣小组, 组织, 活动, 结伴, 交友, 社区平台",
   description:
-    "The code kit to help you quickly setup an online store and sell your digital assets without a middleman skipping off the top of your profits.",
+    "Group Finder helps you quickly discover, join, and manage various interest groups and communities. Easily connect with like-minded people, participate in events, and build your own social circles.",
   openGraph:
     mode === "comingSoon"
       ? {
-        title: "WDCStarterKit.com",
+        title: "The Group Finder",
         description:
-          "I'm building the ultimate next.js starter kit to help you hit the ground runnning on your next saas product.",
-        url: "https://wdcstarterkit.com",
-        siteName: "WDC StarterKit",
+          "The Group Finder helps you quickly discover, join, and manage various interest groups and communities. Easily connect with like-minded people, participate in events, and build your own social circles.",
+        url: "https://thegroupfinder.com",
+        siteName: "The Group Finder",
         type: "website",
         images: [
           {
-            url: "https://wdcstarterkit.com/starterkitcard.png",
-            secureUrl: "https://wdcstarterkit.com/starterkitcard.png",
+            url: "https://thegroupfinder.com/starterkitcard.png",
+            secureUrl: "https://thegroupfinder.com/starterkitcard.png",
             width: 800,
             height: 418,
-            alt: "The WDC StarterKit social media card image",
+            alt: "The Group Finder social media card image",
           },
         ],
       }

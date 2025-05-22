@@ -28,14 +28,14 @@ export default async function SettingsPage() {
       </ConfigurationPanel>
 
       <ConfigurationPanel title={t('themeTitle')}>
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <span className="mb-2 sm:mb-0">{t('themeToggle')}</span>
           <ModeToggle />
         </div>
       </ConfigurationPanel>
 
       <ConfigurationPanel title={t('languageTitle')}>
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <span className="mb-2 sm:mb-0">{t('languageToggle')}</span>
           <LanguageToggle />
         </div>

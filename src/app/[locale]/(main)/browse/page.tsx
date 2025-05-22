@@ -44,9 +44,11 @@ export default async function BrowsePage({
               action={async (formData: FormData) => {
                 "use server";
                 const searchString = formData.get("search") as string;
-                redirect(
-                  searchString ? `/browse?search=${searchString}` : "/browse"
-                );
+                if (searchString) {
+                  redirect(`/browse?search=${encodeURIComponent(searchString)}`);
+                } else {
+                  redirect("/browse");
+                }
               }}
             >
               <div className={formGroupStyles}>

@@ -1,11 +1,11 @@
 export default {
     common: {
-        viewDashboard: "查看仪表板",
-        createAccount: "创建账户",
+        viewDashboard: "管理小组",
+        createAccount: "加入我们",
         signIn: "登录",
         goToDashboard: "前往仪表板",
-        upgradeNow: "立即升级",
-        signInToUpgrade: "登录以升级",
+        upgradeNow: "选择此方案",
+        signInToUpgrade: "立即加入",
         settings: "设置",
         signOut: "登出",
         save: "保存",
@@ -15,56 +15,67 @@ export default {
     },
     landing: {
         hero: {
-            badge: "发现志同道合的人",
-            title: "创建和发现新的兴趣小组",
-            description: "我们的在线服务让您轻松与分享您兴趣的人联系，无论是徒步旅行、绘画还是踢足球。创建或加入小组，安排聚会，与新朋友一起享受您的爱好。今天就开始建立您的社区！",
+            badge: "为故事而生",
+            title: "寻找一起讲故事的人",
+            description: "汇聚每一份对好故事的热爱。我们致力于连接创作者的才华、观众的期待与投资者的远见，共同打造一个充满活力与想象力的短剧创作与分享社区。",
         },
         pricing: {
-            title: "简单定价，适合所有人",
-            subtitle: "选择最适合您的计划。享受高级内容的完全访问权和专家支持。今天就开始您的旅程，实现您的目标！",
+            title: "生态合作伙伴计划",
+            subtitle: "我们诚邀AI技术服务商、内容发行平台、短剧出品方及相关产业链伙伴，共同参与[The Group Finder]的生态建设。本社区汇聚了对AIGC技术充满热忱的创作者、经验丰富的编剧导演及活跃的早期用户。他们不仅是你前沿技术与服务的理想验证者与反馈者，更是塑造未来影像内容的生力军。成为我们的生态伙伴，你将精准触达高价值的AIGC创作人群，提升品牌行业影响力，共同培育并见证一个新兴文化科技领域的蓬勃发展。",
             includes: "此计划包括：",
-            basic: "基础版",
-            premium: "高级版",
+            basic: "社区支持伙伴",
+            premium: "生态共建伙伴",
             perMonth: "/ 月",
-            features: {
-                solution: "完整的Next.js解决方案",
-                stripe: "Stripe集成",
-                auth: "用户认证",
-                authorization: "基于角色的授权",
-                dashboard: "用户仪表板",
+            basicfeatures: {
+                solution: "社区支持伙伴认证",
+                stripe: "平台标准名录展示",
+                auth: "月度社群邮件鸣谢",
+                authorization: "获取社群最新动态",
+                dashboard: "页脚合作伙伴Logo展示 (标准)",
             },
+            premiumfeatures: {
+                solution: "包含社区支持伙伴所有权益",
+                stripe: "平台核心位置优先展示",
+                auth: "官方认证生态伙伴徽章",
+                authorization: "优先参与及赞助社区官方活动",
+                dashboard: "季度合作效果简报与行业洞察",
+                support: "专属合作对接人服务",
+            },
+            supportTitle: "你的支持将如何助力社区？",
+            supportDescription: "每一份支持都将用于[The Group Finder]平台的持续优化、创作者激励、优质内容扶持及社群活动的组织，共同营造繁荣、健康的AIGC创作生态。"
         },
     },
     footer: {
-        company: "公司",
+        company: "联系我",
         helpCenter: "帮助中心",
         twitter: "推特",
+        wechat: "微信",
         legal: "法律",
         privacyPolicy: "隐私政策",
         termsOfService: "服务条款",
     },
     menu: {
-        yourGroups: "您的小组",
-        browseGroups: "浏览小组",
+        yourGroups: "你的小组",
+        browseGroups: "发现小组",
         apiDocs: "API文档",
-        features: "功能",
-        pricing: "定价",
+        features: "探索发现",
+        pricing: "生态合作",
     },
     settings: {
         title: "小组设置",
         groupImage: "小组图片",
-        groupImageDescription: "上传小组图片使您的小组更加突出。",
+        groupImageDescription: "上传小组图片使你的小组更加突出。",
         groupName: "小组名称",
         groupVisibility: "小组可见性",
-        groupVisibilityDescription: "小组默认为私密。如果您希望互联网上的随机用户无需邀请即可找到并加入您的小组，请将此选项打开。",
+        groupVisibilityDescription: "小组默认为私密。如果你希望互联网上的随机用户无需邀请即可找到并加入你的小组，请将此选项打开。",
         groupDescription: "小组描述",
         save: "保存",
         nameUpdated: "名称已更新",
         nameUpdatedMessage: "名称更新成功。",
         updateSuccessful: "更新成功",
-        descriptionUpdatedMessage: "您的小组描述已更新。",
+        descriptionUpdatedMessage: "你的小组描述已更新。",
         errorMessage: "出现错误",
-        descriptionErrorMessage: "您的描述未能成功更新。",
+        descriptionErrorMessage: "你的描述未能成功更新。",
         socialLinks: {
             title: "社交链接",
             youtube: "YouTube",
@@ -72,7 +83,7 @@ export default {
             x: "X",
             github: "Github",
             updated: "小组已更新",
-            updatedMessage: "您的社交链接已更新。",
+            updatedMessage: "你的社交链接已更新。",
             errorMessage: "更新社交链接失败。",
         },
         theme: {
@@ -96,38 +107,38 @@ export default {
         switchToProfile: "切换到个人资料",
         security: {
             sessions: "会话",
-            sessionsDescription: "如果您在多个设备上登录，您可以强制注销所有设备。",
+            sessionsDescription: "如果你在多个设备上登录，你可以强制注销所有设备。",
             logoutAllSessions: "注销所有会话"
         },
         danger: {
             deleteAccount: "删除账户",
-            deleteAccountDescription: "删除您的账户意味着您将无法在未来恢复您的数据。请输入 Please delete 确认。",
-            deleteAccountTitle: "您确定吗？",
+            deleteAccountDescription: "删除你的账户意味着你将无法在未来恢复你的数据。请输入 Please delete 确认。",
+            deleteAccountTitle: "你确定吗？",
             confirm: "确认",
             cancel: "取消",
             failedToDeleteAccount: "删除账户失败。",
             accountDeleted: "账户已删除",
-            accountDeletedDescription: "您的账户已成功删除。",
+            accountDeletedDescription: "你的账户已成功删除。",
         }
     },
     browse: {
         title: "浏览小组",
-        searchPlaceholder: "篮球、编程、手工等",
+        searchPlaceholder: "AI造梦社、未来光影工作室等",
         searchButton: "搜索",
         noResults: "没有找到匹配的小组",
     },
     dashboard: {
-        title: "您的小组",
-        ownedGroupsTitle: "您管理的小组",
-        noOwnedGroups: "您没有管理任何小组",
-        otherGroupsTitle: "您参与的其他小组",
-        noOtherGroups: "您没有参与任何小组",
+        title: "你的小组",
+        ownedGroupsTitle: "你管理的小组",
+        noOwnedGroups: "你没有管理任何小组",
+        otherGroupsTitle: "你参与的小组",
+        noOtherGroups: "你没有参与任何小组",
         emptyState: {
-            title: "哎呀，您还没有拥有任何小组",
+            title: "你还没有创建任何小组",
             createButton: "创建小组",
             browseButton: "浏览小组",
             createTitle: "创建小组",
-            createDescription: "创建一个新的小组来开始管理您的活动。",
+            createDescription: "创建一个新的小组来开始管理你的活动。",
         },
         groupCard: {
             manageButton: "管理小组",
@@ -136,7 +147,7 @@ export default {
             members: "成员",
         },
         groupCreated: "小组已创建",
-        groupCreatedDescription: "您现在可以开始管理您的活动",
+        groupCreatedDescription: "你现在可以开始管理你的活动",
         somethingWentWrong: "出了点问题",
         groupName: "小组名称",
         groupDescription: "小组描述",
@@ -149,17 +160,17 @@ export default {
         updateSuccessfulDescription: "小组可见性已更新。",
         isGroupPublic: "小组是否公开",
         failedToUpdateGroupDescription: "更新小组描述失败。",
-        updateDescriptionSuccessfulDescription: "您的描述已更新。",
+        updateDescriptionSuccessfulDescription: "你的描述已更新。",
         ohSomethingWentWrong: "哎呀，出了点问题",
         upload: "上传",
         image: "图片",
         imageUpdated: "图片已更新",
-        imageUpdatedGroupDescription: "您已成功更新小组图片。",
-        imageUpdatedProfileDescription: "您已成功更新个人图片。",
+        imageUpdatedGroupDescription: "你已成功更新小组图片。",
+        imageUpdatedProfileDescription: "你已成功更新个人图片。",
         failedToUpdateGroupImage: "更新小组图片失败。",
         failedToUpdateProfileImage: "更新个人图片失败。",
         profileImage: "个人图片",
-        profileBioUpdated: "您的个人简介已更新。",
+        profileBioUpdated: "你的个人简介已更新。",
         failedToUpdateProfileBio: "更新个人简介失败。",
         saveChanges: "保存更改",
         displayName: "显示名称",
@@ -189,9 +200,9 @@ export default {
             deleteDescription: "删除此小组及其所有数据。",
             deleteButton: "删除小组",
             deleteConfirmTitle: "删除小组",
-            deleteConfirmDescription: "您确定要删除此小组吗？所有成员将无法再查看小组信息，所有数据将从我们的系统中删除。",
+            deleteConfirmDescription: "你确定要删除此小组吗？所有成员将无法再查看小组信息，所有数据将从我们的系统中删除。",
             cancelButton: "取消",
-            successMessage: "您已离开此小组。",
+            successMessage: "你已离开此小组。",
             errorMessage: "删除小组时出现错误。",
         },
         events: {
@@ -206,7 +217,7 @@ export default {
             editEvent: "编辑活动",
             editEventDescription: "编辑活动详情",
             deleteEvent: "删除活动",
-            deleteEventConfirmation: "您确定要删除此活动吗？删除此活动可能会使您的成员感到困惑或不满。",
+            deleteEventConfirmation: "你确定要删除此活动吗？删除此活动可能会使你的成员感到困惑或不满。",
             cancel: "取消",
             delete: "删除",
             form: {
@@ -242,7 +253,7 @@ export default {
             managePost: "管理帖子",
             readPost: "阅读帖子",
             deletePost: "删除帖子",
-            deletePostConfirm: "您确定要删除此帖子吗？",
+            deletePostConfirm: "你确定要删除此帖子吗？",
             deletePostSuccess: "帖子删除成功",
             form: {
                 postTitle: "标题",
@@ -269,9 +280,9 @@ export default {
                 errorMessage: "创建回复时出现错误。",
                 errorUpdateMessage: "更新回复时出现错误。",
                 editReply: "编辑回复",
-                editReplyDescription: "更新您的回复内容",
+                editReplyDescription: "更新你的回复内容",
                 deleteReply: "删除回复",
-                deleteReplyConfirm: "您确定要删除此回复吗？",
+                deleteReplyConfirm: "你确定要删除此回复吗？",
                 deleteReplySuccess: "回复已删除",
             },
         },
@@ -283,13 +294,13 @@ export default {
             invite: {
                 button: "发送邀请",
                 title: "邀请好友",
-                description: "输入您想邀请加入此小组的人的电子邮件。",
+                description: "输入你想邀请加入此小组的人的电子邮件。",
                 emailLabel: "电子邮件",
                 emailPlaceholder: "webdevcody@gmail.com",
                 inviteButton: "邀请",
                 cancelButton: "取消",
                 successTitle: "邀请已发送",
-                successMessage: "告诉您的朋友查看他们的电子邮件。",
+                successMessage: "告诉你的朋友查看他们的电子邮件。",
                 errorMessage: "发送邀请失败。",
             },
         },
@@ -297,20 +308,20 @@ export default {
             button: "加入群组",
             success: {
                 title: "成功",
-                description: "您已加入此群组"
+                description: "你已加入此群组"
             }
         },
         leave: {
             button: "退出群组",
             dialog: {
                 title: "退出群组",
-                description: "您确定要退出此群组吗？如果这是一个私密群组，管理员需要重新邀请您才能加入。",
+                description: "你确定要退出此群组吗？如果这是一个私密群组，管理员需要重新邀请你才能加入。",
                 cancel: "取消",
                 confirm: "是的，退出群组"
             },
             success: {
                 title: "成功",
-                description: "您已退出此群组。"
+                description: "你已退出此群组。"
             }
         }
     },
@@ -322,8 +333,8 @@ export default {
             errorMessage: "更新个人资料名称失败。",
             bio: {
                 saveChanges: "保存更改",
-                successMessage: "您的个人简介已更新。",
-                errorMessage: "您的个人简介更新失败。",
+                successMessage: "你的个人简介已更新。",
+                errorMessage: "你的个人简介更新失败。",
             },
         },
         tabs: {
@@ -333,7 +344,7 @@ export default {
             followers: "关注者",
         },
         header: {
-            editProfile: "编辑您的个人资料",
+            editProfile: "编辑你的个人资料",
             follow: "关注",
             unfollow: "取消关注",
         },
@@ -345,21 +356,21 @@ export default {
     },
     email: {
         invite: {
-            preview: "您收到了一个群组邀请！",
-            message: "您被邀请加入 groupfinder.com 上的群组 {groupName}。点击下方链接登录并访问您的群组。",
+            preview: "你收到了一个群组邀请！",
+            message: "你被邀请加入 groupfinder.com 上的群组 {groupName}。点击下方链接登录并访问你的群组。",
             actionButton: "登录查看群组",
             footer: "© 2025 {appName}。保留所有权利。"
         },
         magicLink: {
-            preview: "您收到了一个群组邀请！",
-            message: "您的登录链接在下方，点击即可登录。",
+            preview: "你收到了一个群组邀请！",
+            message: "你的登录链接在下方，点击即可登录。",
             button: "使用链接登录",
             footer: "© 2025 {appName}。保留所有权利。"
         }
     },
     notifications: {
-        title: "您的通知",
-        empty: "您没有任何通知",
+        title: "你的通知",
+        empty: "你没有任何通知",
         markAllRead: "全部标记为已读",
         viewAll: "查看通知",
         headerTitle: "通知",
@@ -368,8 +379,8 @@ export default {
         success: "成功",
         markedAsRead: "所有消息已标记为已读。",
         cleared: "已读消息已清除。",
-        confirmClear: "您确定吗？",
-        confirmClearDesc: "这将永久清除系统中所有您已读的通知。",
+        confirmClear: "你确定吗？",
+        confirmClearDesc: "这将永久清除系统中所有你已读的通知。",
         cancel: "取消",
         clearButton: "清除通知",
         view: "查看",
@@ -377,12 +388,12 @@ export default {
     },
     error: {
         auth: {
-            authentication: "您必须登录后才能查看此内容",
-            privateGroup: "您没有权限查看此群组",
+            authentication: "你必须登录后才能查看此内容",
+            privateGroup: "你没有权限查看此群组",
             notFound: "未找到"
         },
         user: {
-            deleteAccount: "您只能删除自己的账号",
+            deleteAccount: "你只能删除自己的账号",
             notFound: "未找到用户",
             emailExists: "该邮箱已被注册",
             invalidToken: "无效的令牌",
@@ -392,7 +403,7 @@ export default {
             notImage: "文件必须是图片格式",
             tooLarge: "文件大小不能超过 {maxSize}MB"
         },
-        authTitle: "哎呀！您需要先登录",
+        authTitle: "哎呀！你需要先登录",
         authMessage: "要访问此页面，请先登录。",
         signIn: "登录",
         genericTitle: "哎呀！出了点问题"
@@ -421,7 +432,7 @@ export default {
             },
             success: {
                 title: "登录成功！",
-                description: "祝您使用愉快"
+                description: "祝你使用愉快"
             }
         },
         signUp: {
@@ -445,7 +456,7 @@ export default {
         },
         signOut: {
             title: "已成功退出登录",
-            description: "您已成功退出登录。现在可以重新登录您的账号。",
+            description: "你已成功退出登录。现在可以重新登录你的账号。",
             button: "登录"
         },
         forgotPassword: {
@@ -455,12 +466,12 @@ export default {
             emailPlaceholder: "请输入邮箱",
             success: {
                 title: "重置链接已发送",
-                description: "我们已向您发送了一封包含密码重置链接的邮件。"
+                description: "我们已向你发送了一封包含密码重置链接的邮件。"
             }
         },
         magicLink: {
-            title: "请查看您的邮箱",
-            description: "我们已向您发送了一个登录链接。请点击邮件中的链接进行登录。",
+            title: "请查看你的邮箱",
+            description: "我们已向你发送了一个登录链接。请点击邮件中的链接进行登录。",
             error: {
                 title: "令牌已过期",
                 description: "抱歉，此令牌已过期或已被使用。请尝试重新登录",
@@ -469,15 +480,15 @@ export default {
         },
         verify: {
             title: "邮箱验证成功",
-            description: "您的邮箱已成功验证。现在可以登录您的账号了。",
+            description: "你的邮箱已成功验证。现在可以登录你的账号了。",
             button: "登录",
-            preview: "验证您的邮箱",
-            message: "点击以下链接验证您的邮箱",
+            preview: "验证你的邮箱",
+            message: "点击以下链接验证你的邮箱",
             footer: "© 2025 {appName}。保留所有权利。",
             verifyButton: "验证邮箱"
         },
         resetPassword: {
-            preview: "重置您的密码",
+            preview: "重置你的密码",
             message: "点击以下链接重置密码",
             button: "重置密码",
             footer: "© 2025 {appName}。保留所有权利。"
@@ -485,19 +496,19 @@ export default {
     },
     users: {
         unfollow: "取消关注",
-        unfollowedUser: "您已取消关注该用户。",
+        unfollowedUser: "你已取消关注该用户。",
         failedToUnfollowUser: "取消关注时出现错误。",
         follow: "关注",
-        followedUser: "您已关注该用户。",
+        followedUser: "你已关注该用户。",
         failedToFollowUser: "关注时出现错误。",
     },
     replies: {
         postNotFound: "帖子未找到",
-        userDoesNotHaveAccessToGroup: "您没有权限访问此群组",
-        userDoesNotHavePermissionToReplyToPost: "您没有权限回复此帖子",
-        userDoesNotHavePermissionToDeleteReply: "您没有权限删除此回复",
-        userDoesNotHaveAccessToReply: "您没有权限访问此回复",
+        userDoesNotHaveAccessToGroup: "你没有权限访问此群组",
+        userDoesNotHavePermissionToReplyToPost: "你没有权限回复此帖子",
+        userDoesNotHavePermissionToDeleteReply: "你没有权限删除此回复",
+        userDoesNotHaveAccessToReply: "你没有权限访问此回复",
         replyNotFound: "回复未找到",
-        someoneRepliedToYourPost: "有人回复了您的帖子标题为 {title}。",
+        someoneRepliedToYourPost: "有人回复了你的帖子标题为 {title}。",
     }
 } as const;

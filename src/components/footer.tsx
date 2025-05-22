@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ModeToggle } from "@/components/mode-toggle";
 import { LanguageToggle } from "@/components/language-toggle";
 import { getScopedI18n } from "@/locales/server";
+import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
+import Image from "next/image";
 
 export async function Footer() {
   const year = new Date().getFullYear();
@@ -14,8 +16,8 @@ export async function Footer() {
         <div className="max-w-screen-xl p-4 py-6 mx-auto lg:py-16 md:p-8 lg:p-10">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-3">
             <div>
-              <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                {t("company")}
+              <h3 className="mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                {applicationName}
               </h3>
             </div>
             <div>
@@ -27,6 +29,26 @@ export async function Footer() {
                   <a href="https://x.com/hhwjsw711" target="_blank" className="hover:underline">
                     {t("twitter")}
                   </a>
+                </li>
+                <li className="mb-4">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <button className="rounded-full hover:bg-muted transition-colors">
+                        {t("wechat")}
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <div className="p-2">
+                        <Image
+                          src="/weixin.jpg"
+                          alt="WeChat QR Code"
+                          width={200}
+                          height={200}
+                          className="rounded-md"
+                        />
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 </li>
               </ul>
             </div>

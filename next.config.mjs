@@ -12,7 +12,9 @@ if (process.env.NODE_ENV === "development") {
     "oauth2.googleapis.com",
     "openidconnect.googleapis.com",
     "lh3.googleusercontent.com",
-    "r2.cloudflarestorage.com"
+    "r2.cloudflarestorage.com",
+    "github.com",
+    "api.github.com"
   ];
 
   const originalFetch = global.fetch;

@@ -105,11 +105,11 @@ export async function PricingSection({
             hasSubscription={hasSubscription}
             priceId={env.NEXT_PUBLIC_PRICE_ID_BASIC}
             features={[
-              t("features.solution"),
-              t("features.stripe"),
-              t("features.auth"),
-              t("features.authorization"),
-              t("features.dashboard"),
+              t("basicfeatures.solution"),
+              t("basicfeatures.stripe"),
+              t("basicfeatures.auth"),
+              t("basicfeatures.authorization"),
+              t("basicfeatures.dashboard"),
             ]}
           />
 
@@ -119,11 +119,12 @@ export async function PricingSection({
             hasSubscription={hasSubscription}
             priceId={env.NEXT_PUBLIC_PRICE_ID_PREMIUM}
             features={[
-              t("features.solution"),
-              t("features.stripe"),
-              t("features.auth"),
-              t("features.authorization"),
-              t("features.dashboard"),
+              t("premiumfeatures.solution"),
+              t("premiumfeatures.stripe"),
+              t("premiumfeatures.auth"),
+              t("premiumfeatures.authorization"),
+              t("premiumfeatures.dashboard"),
+              t("premiumfeatures.support"),
             ]}
           />
         </div>

@@ -4,13 +4,14 @@ import { cn } from "@/lib/utils";
 import { cardStyles, pageTitleStyles } from "@/styles/common";
 import { getGroupMembersUseCase } from "@/use-cases/groups";
 import { isGroupOwnerUseCase } from "@/use-cases/membership";
-import { UserId } from "@/use-cases/types";
+import { MemberInfo } from "@/use-cases/types";
 import Link from "next/link";
 import { InviteButton } from "../invite-button";
 import { Crown, Gavel, Users } from "lucide-react";
 import { MemberCardActions } from "./member-card-actions";
-import { GroupId } from "@/db/schema";
+import { GroupId, Profile } from "@/db/schema";
 import { getScopedI18n } from "@/locales/server";
+import { getProfileImageFullUrl } from "../../../settings/profile/profile-image";
 
 function MemberCard({
   showActions,
@@ -19,13 +20,14 @@ function MemberCard({
 }: {
   showActions?: boolean;
   groupId: GroupId;
-  member: {
-    userId: UserId;
-    image: string | null;
-    name: string | null;
-    role: string;
-  };
+  member: MemberInfo;
 }) {
+  const profileForAvatar: Pick<Profile, "userId" | "image" | "imageId"> = {
+    userId: member.userId,
+    image: member.image,
+    imageId: member.imageId,
+  };
+
   return (
     <div key={member.userId} className="flex items-center gap-4">
       <div
@@ -35,8 +37,8 @@ function MemberCard({
         )}
       >
         <Avatar>
-          <AvatarImage src={member.image || "/group.jpeg"} />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={getProfileImageFullUrl(profileForAvatar)} />
+          <AvatarFallback>{member.name?.substring(0, 2).toUpperCase() || "CN"}</AvatarFallback>
         </Avatar>
         <Link href={`/users/${member.userId}/info`}>
           <p className="text-xl">{member.name}</p>

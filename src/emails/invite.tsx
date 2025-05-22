@@ -42,7 +42,7 @@ export async function InviteEmail({
                 src={`${BASE_URL}/group.jpeg`}
                 width="160"
                 height="48"
-                alt="StarterKit"
+                alt="The Group Finder"
                 className="my-0 mx-auto"
               />
             </Section>

@@ -57,7 +57,7 @@ export default {
     menu: {
         yourGroups: "你的小组",
         browseGroups: "发现小组",
-        apiDocs: "API文档",
+        apiDocs: "社区行为准则",
         features: "探索发现",
         pricing: "生态合作",
     },
@@ -138,16 +138,16 @@ export default {
             createButton: "创建小组",
             browseButton: "浏览小组",
             createTitle: "创建小组",
-            createDescription: "创建一个新的小组来开始管理你的活动。",
+            createDescription: "创建一个小组，与伙伴们一起开启你们的AIGC故事创作之旅吧！",
         },
         groupCard: {
             manageButton: "管理小组",
             viewButton: "查看小组",
             viewButtonBrowse: "查看",
-            members: "成员",
+            members: "位成员",
         },
-        groupCreated: "小组已创建",
-        groupCreatedDescription: "你现在可以开始管理你的活动",
+        groupCreated: "小组创建成功",
+        groupCreatedDescription: "现在就开始邀请你的创作伙伴吧。",
         somethingWentWrong: "出了点问题",
         groupName: "小组名称",
         groupDescription: "小组描述",
@@ -178,9 +178,9 @@ export default {
     },
     group: {
         header: {
-            members: "{count} 成员",
-            upcomingEvents: "{count} 即将举行的活动",
-            privateGroup: "私密小组",
+            members: "{count} 位成员",
+            upcomingEvents: "{count} 场即将举行的活动",
+            privateGroup: "私密",
         },
         tabs: {
             info: "信息",
@@ -288,21 +288,37 @@ export default {
         },
         members: {
             title: "成员",
-            owner: "拥有者",
+            owner: "所有者",
             admin: "管理员",
-            members: "成员",
+            members: "普通成员",
             invite: {
                 button: "发送邀请",
                 title: "邀请好友",
                 description: "输入你想邀请加入此小组的人的电子邮件。",
                 emailLabel: "电子邮件",
-                emailPlaceholder: "webdevcody@gmail.com",
+                emailPlaceholder: "yourname@example.com",
                 inviteButton: "邀请",
                 cancelButton: "取消",
                 successTitle: "邀请已发送",
-                successMessage: "告诉你的朋友查看他们的电子邮件。",
+                successMessage: "提醒你的朋友查看他们的电子邮件。",
                 errorMessage: "发送邀请失败。",
+                processingTitle: "正在处理邀请",
+                loginPrompt: "有人向你发送了邀请，但你需要先登录才能接受邀请。请点击下面的按钮登录。",
+                loginButton: "登录以接受邀请",
+                errors: {
+                    notFoundOrExpired: "此邀请不存在或已过期",
+                    expired: "此邀请已过期",
+                },
+                emailSubject: "你被邀请加入 {appName} 上的一个小组",
             },
+            memberActions: {
+                kickTitle: "移除成员",
+                kickDescription: "你确定要将该成员移出小组吗？",
+                kickConfirm: "移除",
+                promoteToAdmin: "升级为管理员",
+                demoteToMember: "降级为普通成员",
+                kick: "移除",
+            }
         },
         join: {
             button: "加入群组",
@@ -357,8 +373,8 @@ export default {
     email: {
         invite: {
             preview: "你收到了一个群组邀请！",
-            message: "你被邀请加入 groupfinder.com 上的群组 {groupName}。点击下方链接登录并访问你的群组。",
-            actionButton: "登录查看群组",
+            message: "你被邀请加入 thegroupfinder.com 上的小组 {groupName}。点击下方链接登录并访问你的小组。",
+            actionButton: "登录以查看小组",
             footer: "© 2025 {appName}。保留所有权利。"
         },
         magicLink: {

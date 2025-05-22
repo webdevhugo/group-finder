@@ -15,6 +15,7 @@ import { btnIconStyles, btnStyles } from "@/styles/icons";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { kickMemberAction, switchMemberRoleAction } from "./actions";
+import { useScopedI18n } from "@/locales/client";
 
 export function MemberCardActions({
   userId,
@@ -25,6 +26,7 @@ export function MemberCardActions({
   groupId: number;
   userRole: string;
 }) {
+  const t = useScopedI18n("group.members.memberActions");
   const [isOpen, setIsOpen] = useState(false);
 
   const { execute: executeSwitchRole } = useServerAction(
@@ -47,9 +49,9 @@ export function MemberCardActions({
       <DeleteModal
         isOpen={isDeleteModalOpen}
         setIsOpen={setIsDeleteModalOpen}
-        title="Kick Member"
-        description="Are you sure you want to kick this member from the group?"
-        confirmText="Yes, Kick Them"
+        title={t("kickTitle")}
+        description={t("kickDescription")}
+        confirmText={t("kickConfirm")}
         onConfirm={() => {
           execute({
             userId,
@@ -78,7 +80,7 @@ export function MemberCardActions({
               }}
             >
               <Crown className={btnIconStyles} />
-              Promote to Admin
+              {t("promoteToAdmin")}
             </DropdownMenuItem>
           )}
 
@@ -94,7 +96,7 @@ export function MemberCardActions({
               }}
             >
               <User className={btnIconStyles} />
-              Demote to Member
+              {t("demoteToMember")}
             </DropdownMenuItem>
           )}
 
@@ -105,7 +107,7 @@ export function MemberCardActions({
             className={cn(btnStyles, "text-red-500")}
           >
             <Gavel className={btnIconStyles} />
-            Kick
+            {t("kick")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

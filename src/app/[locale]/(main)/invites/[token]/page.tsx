@@ -5,6 +5,7 @@ import { pageTitleStyles, pageWrapperStyles } from "@/styles/common";
 import { acceptInviteUseCase } from "@/use-cases/invites";
 import { Link } from "@react-email/components";
 import { redirect } from "next/navigation";
+import { getScopedI18n } from "@/locales/server";
 
 export default async function InvitesPage({
   params,
@@ -14,6 +15,7 @@ export default async function InvitesPage({
   }>;
 }) {
   const { token } = await params;
+  const t = await getScopedI18n("group.members.invite");
 
   if (!token) {
     throw new Error("Invalid invite link");
@@ -30,17 +32,16 @@ export default async function InvitesPage({
     <div className={pageWrapperStyles}>
       {!user && (
         <>
-          <h1 className={pageTitleStyles}>Processing Invites</h1>
+          <h1 className={pageTitleStyles}>{t("processingTitle")}</h1>
           <p className="max-w-md text-lg">
-            Someone sent you an invite, but you need to first login to accept
-            it. Click the button below to get started.
+            {t("loginPrompt")}
           </p>
 
           <Button asChild>
             <Link
               href={`/sign-in?callbackUrl=${env.HOST_NAME}/invites/${token}`}
             >
-              Login to Accept Invite
+              {t("loginButton")}
             </Link>
           </Button>
         </>

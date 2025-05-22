@@ -9,7 +9,7 @@ import { Suspense } from "react";
 import { getUserProfileLoader } from "./page";
 import { getScopedI18n } from "@/locales/server";
 
-export function getProfileImageFullUrl(profile: Profile) {
+export function getProfileImageFullUrl(profile: { userId: number; image: string | null; imageId: string | null }) {
   return profile.imageId
     ? getProfileImageUrl(profile.userId, profile.imageId)
     : profile.image

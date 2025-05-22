@@ -17,5 +17,6 @@ export type MemberInfo = {
   name: string | null;
   userId: UserId;
   image: string | null;
+  imageId: string | null;
   role: Role;
 };

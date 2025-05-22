@@ -55,7 +55,7 @@ export function InviteButton() {
       setIsOpen(false);
       form.reset();
       toast({
-        title: tCommon("success"),
+        title: t("successTitle"),
         description: t("successMessage"),
       });
     },

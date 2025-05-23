@@ -66,7 +66,6 @@ async function PostsList({ groupId }: { groupId: string }) {
             alt="no image placeholder image"
           ></Image>
           <h2>{t("noPosts")}</h2>
-          <CreatePostButton />
         </div>
       )}
 

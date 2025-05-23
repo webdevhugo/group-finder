@@ -12,6 +12,17 @@ export default {
         cancel: "取消",
         success: "成功",
         error: "错误",
+        errors: {
+            file: {
+                notImage: "文件必须是图片格式",
+                tooLarge: "文件大小超过限制，最大允许 {size}MB"
+            }
+        },
+        notifications: {
+            event: {
+                created: "你加入的小组 \"{groupName}\" 创建了新活动"
+            }
+        }
     },
     landing: {
         hero: {
@@ -213,11 +224,11 @@ export default {
             expired: "已过期",
             noExpired: "没有找到已过期的活动",
             createButton: "创建活动",
-            createDescription: "填写以下表单以创建活动。",
+            createDescription: "填写下面的表单以创建活动。",
             editEvent: "编辑活动",
             editEventDescription: "编辑活动详情",
             deleteEvent: "删除活动",
-            deleteEventConfirmation: "你确定要删除此活动吗？删除此活动可能会使你的成员感到困惑或不满。",
+            deleteEventConfirmation: "你确定要删除此活动吗？删除此活动可能会使你的成员感到困惑。",
             cancel: "取消",
             delete: "删除",
             form: {
@@ -268,7 +279,7 @@ export default {
                 errorUpdateMessage: "更新帖子时出现错误。",
             },
             createPostTitle: "创建帖子",
-            createPostDescription: "填写下面的表单创建帖子。",
+            createPostDescription: "填写下面的表单以创建帖子。",
             reply: {
                 title: "内容",
                 postReply: "发表回复",
@@ -333,7 +344,7 @@ export default {
                 title: "退出群组",
                 description: "你确定要退出此群组吗？如果这是一个私密群组，管理员需要重新邀请你才能加入。",
                 cancel: "取消",
-                confirm: "是的，退出群组"
+                confirm: "退出群组"
             },
             success: {
                 title: "成功",

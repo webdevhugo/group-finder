@@ -12,6 +12,17 @@ export default {
         cancel: "Cancel",
         success: "Success",
         error: "Error",
+        errors: {
+            file: {
+                notImage: "File should be an image",
+                tooLarge: "File size too large. Max size is {size}MB"
+            }
+        },
+        notifications: {
+            event: {
+                created: "An event has been created for the \"{groupName}\" you joined"
+            }
+        }
     },
     landing: {
         hero: {

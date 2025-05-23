@@ -24,6 +24,7 @@ import { getGroupImageKey } from "./files";
 import { createNotification } from "@/data-access/notifications";
 import { NotFoundError } from "@/app/[locale]/(main)/util";
 import { PublicError } from "./errors";
+import { getScopedI18n } from "@/locales/server";
 
 export async function getEventsUseCase(
   authenticatedUser: UserSession | undefined,
@@ -62,15 +63,15 @@ export async function createEventUseCase(
     eventImage?: File;
   }
 ) {
+  const t = await getScopedI18n("common");
+
   if (eventImage) {
     if (!eventImage.type.startsWith("image/")) {
-      throw new PublicError("File should be an image.");
+      throw new PublicError(t("errors.file.notImage"));
     }
 
     if (eventImage.size > MAX_UPLOAD_IMAGE_SIZE) {
-      throw new PublicError(
-        `File size too large. Max size is ${MAX_UPLOAD_IMAGE_SIZE_IN_MB}MB`
-      );
+      throw new PublicError(t("errors.file.tooLarge", { size: MAX_UPLOAD_IMAGE_SIZE_IN_MB }));
     }
   }
 
@@ -102,7 +103,7 @@ export async function createEventUseCase(
         userId: user.userId,
         groupId: group.id,
         type: "event",
-        message: `An event has been created for the "${group.name}" you joined.`,
+        message: t("notifications.event.created", { groupName: group.name }),
         createdOn: new Date(),
       })
     )

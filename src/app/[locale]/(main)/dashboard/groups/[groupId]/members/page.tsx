@@ -38,7 +38,7 @@ function MemberCard({
       >
         <Avatar>
           <AvatarImage src={getProfileImageFullUrl(profileForAvatar)} />
-          <AvatarFallback>{member.name?.substring(0, 2).toUpperCase() || "CN"}</AvatarFallback>
+          <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <Link href={`/users/${member.userId}/info`}>
           <p className="text-xl">{member.name}</p>

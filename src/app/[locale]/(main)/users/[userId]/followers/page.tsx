@@ -4,12 +4,14 @@ import { Profile } from "@/db/schema";
 import { getFollowersForUserUseCase } from "@/use-cases/following";
 import Image from "next/image";
 import { getScopedI18n } from "@/locales/server";
+import { getProfileImageFullUrl } from "../../../dashboard/settings/profile/profile-image";
+
 function FollowerCard({ profile }: { profile: Profile }) {
   return (
     <div key={profile.userId} className="flex items-center gap-4">
       <div className="dark:bg-slate-900 flex gap-4 items-center hover:underline border rounded-lg p-4">
         <Avatar>
-          <AvatarImage src={profile.image || "/group.jpeg"} />
+        <AvatarImage src={getProfileImageFullUrl(profile)} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <Link href={`/users/${profile.userId}/info`}>

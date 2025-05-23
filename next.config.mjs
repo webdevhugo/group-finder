@@ -1,7 +1,4 @@
-import { createMDX } from "fumadocs-mdx/next";
 import { ProxyAgent } from "undici";
-
-const withMDX = createMDX();
 
 // 开发环境设置代理
 if (process.env.NODE_ENV === "development") {
@@ -80,4 +77,4 @@ const nextConfig = {
   },
 };
 
-export default withMDX(nextConfig);
+export default nextConfig;

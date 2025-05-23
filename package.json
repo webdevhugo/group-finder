@@ -14,8 +14,7 @@
     "db:studio": "drizzle-kit studio",
     "db:clear": "tsx ./src/db/clear.ts",
     "db:seed": "tsx ./src/db/seed.ts",
-    "db:reset": "npm run db:clear && npm run db:migrate && npm run db:seed",
-    "postinstall": "fumadocs-mdx"
+    "db:reset": "npm run db:clear && npm run db:migrate && npm run db:seed"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.709.0",
@@ -53,9 +52,6 @@
     "date-fns": "4.1.0",
     "dotenv": "16.4.7",
     "drizzle-orm": "0.38.0",
-    "fumadocs-core": "^14.6.0",
-    "fumadocs-mdx": "^11.1.2",
-    "fumadocs-ui": "^14.6.0",
     "lodash": "4.17.21",
     "lucide-react": "0.468.0",
     "next": "15.1.0",
@@ -75,7 +71,7 @@
     "resend": "4.0.1",
     "sanitize-html": "2.13.1",
     "server-only": "0.0.1",
-    "stripe": "17.4.0",
+    "stripe": "^18.1.1",
     "tailwind-merge": "2.5.5",
     "tailwindcss-animate": "1.0.7",
     "undici": "^7.10.0",

@@ -2,13 +2,39 @@
 
 import * as React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DayPicker } from "react-day-picker"
+import { DayPicker, NavProps } from "react-day-picker";
 import { zhCN } from 'date-fns/locale';
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { useCurrentLocale } from "@/locales/client"
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
+
+
+function CustomNav(props: NavProps) {
+  return (
+    <div className={props.classNames.nav}>
+      <button
+        type="button"
+        className={props.classNames.nav_button + " " + props.classNames.nav_button_previous}
+        aria-label="Previous Month"
+        onClick={() => props.onMonthChange(props.previousMonth!)}
+        disabled={!props.previousMonth}
+      >
+        <ChevronLeft className="h-4 w-4" />
+      </button>
+      <button
+        type="button"
+        className={props.classNames.nav_button + " " + props.classNames.nav_button_next}
+        aria-label="Next Month"
+        onClick={() => props.onMonthChange(props.nextMonth!)}
+        disabled={!props.nextMonth}
+      >
+        <ChevronRight className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}
 
 function Calendar({
   className,
@@ -18,7 +44,7 @@ function Calendar({
 }: CalendarProps) {
   const locale = useCurrentLocale();
   const isZh = locale === 'zh';
-  
+
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -28,7 +54,7 @@ function Calendar({
       formatters={{
         // 自定义月份格式
         formatMonthCaption: (date, options) => {
-          return isZh 
+          return isZh
             ? `${date.getFullYear()}年${date.getMonth() + 1}月`
             : date.toLocaleString(options?.locale?.code || 'en', { month: 'long', year: 'numeric' });
         },
@@ -74,8 +100,7 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
-        IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
+        Nav: CustomNav
       }}
       {...props}
     />

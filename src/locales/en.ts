@@ -68,7 +68,6 @@ export default {
     menu: {
         yourGroups: "Your Groups",
         browseGroups: "Browse Groups",
-        apiDocs: "API Docs",
         features: "Features",
         pricing: "Pricing",
     },
@@ -537,5 +536,18 @@ export default {
         userDoesNotHaveAccessToReply: "User does not have access to this reply",
         replyNotFound: "Reply not found",
         someoneRepliedToYourPost: "Someone replied to your post titled {title}.",
-    }
+    },
+    subscribe: {
+        successTitle: "You've been upgraded!",
+        successDesc: "Click below to start using our service",
+        viewDashboard: "View Dashboard",
+        cancelTitle: "Not interested? No worries at all",
+        cancelDesc: "Checkout a free starter kit below until you're ready for the premium starter kit",
+        freeKit: "🆓 Checkout my free next.js starter kit 🆓",
+        convince: "Let my landing page convince you",
+        title: "Manage Subscription",
+        currentPlan: "You are currently using the {plan} plan.",
+        upgradeOrCancel: "You can upgrade or cancel your subscription below",
+        manage: "Manage Subscription",
+    },
 } as const;

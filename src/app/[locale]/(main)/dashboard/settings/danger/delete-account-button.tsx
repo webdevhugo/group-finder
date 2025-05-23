@@ -42,7 +42,7 @@ export function DeleteAccountButton() {
   const t = useScopedI18n('settings.danger');
   const tCommon = useScopedI18n('common');
 
-  const form = useForm<z.infer<typeof deleteSchema>>({
+  const form = useForm<{ confirm: string }>({
     resolver: zodResolver(deleteSchema),
     defaultValues: {
       confirm: "",

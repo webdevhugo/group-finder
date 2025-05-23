@@ -3,7 +3,7 @@ export default {
         viewDashboard: "管理小组",
         createAccount: "加入我们",
         signIn: "登录",
-        goToDashboard: "前往仪表板",
+        goToDashboard: "前往你的小组",
         upgradeNow: "选择此方案",
         signInToUpgrade: "立即加入",
         settings: "设置",
@@ -68,7 +68,6 @@ export default {
     menu: {
         yourGroups: "你的小组",
         browseGroups: "发现小组",
-        apiDocs: "社区行为准则",
         features: "探索发现",
         pricing: "生态合作",
     },
@@ -537,5 +536,18 @@ export default {
         userDoesNotHaveAccessToReply: "你没有权限访问此回复",
         replyNotFound: "回复未找到",
         someoneRepliedToYourPost: "有人回复了你的帖子标题为 {title}。",
-    }
+    },
+    subscribe: {
+        successTitle: "你已加入！",
+        successDesc: "点击下方按钮开始管理你的小组吧",
+        viewDashboard: "前往你的小组",
+        cancelTitle: "不感兴趣？没关系！",
+        cancelDesc: "在你准备好加入之前，可以先浏览小组",
+        freeKit: "浏览小组",
+        convince: "让我用首页打动你",
+        title: "管理订阅",
+        currentPlan: "你当前正在使用 {plan} 方案。",
+        upgradeOrCancel: "你可以在下方升级或取消你的订阅",
+        manage: "管理订阅",
+    },
 } as const;

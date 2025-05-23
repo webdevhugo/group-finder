@@ -54,16 +54,6 @@ export function ConditionalHeader({
                 asChild
                 className="flex items-center justify-center gap-2"
               >
-                <Link href={"/docs"}>
-                  <BookIcon className="w-4 h-4" /> Documentation
-                </Link>
-              </Button>
-
-              <Button
-                variant={"link"}
-                asChild
-                className="flex items-center justify-center gap-2"
-              >
                 <Link href={"/purchases"}>
                   <RocketIcon className="w-4 h-4" /> Dashboard
                 </Link>

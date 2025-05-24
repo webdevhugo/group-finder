@@ -517,7 +517,13 @@ export default {
             preview: "Reset your password",
             message: "Click the following link to reset your password",
             button: "Reset Password",
-            footer: "© 2025 {appName}. All rights reserved."
+            footer: "© 2025 {appName}. All rights reserved.",
+            passwordUpdated: "Password Updated",
+            passwordUpdatedDescription: "Your password has been successfully updated.",
+            loginWithNewPassword: "Login with New Password",
+            changePassword: "Change Password",
+            enterNewPassword: "Enter your new password",
+            confirmNewPassword: "Confirm your new password",
         },
     },
     users: {

@@ -517,7 +517,13 @@ export default {
             preview: "重置你的密码",
             message: "点击以下链接重置密码",
             button: "重置密码",
-            footer: "© 2025 {appName}。保留所有权利。"
+            footer: "© 2025 {appName}。保留所有权利。",
+            passwordUpdated: "密码已更新",
+            passwordUpdatedDescription: "你的密码已成功更新。",
+            loginWithNewPassword: "使用新密码登录",
+            changePassword: "修改密码",
+            enterNewPassword: "输入你的新密码",
+            confirmNewPassword: "确认你的新密码",
         },
     },
     users: {

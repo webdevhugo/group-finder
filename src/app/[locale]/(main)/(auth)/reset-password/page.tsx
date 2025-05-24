@@ -1,7 +1,7 @@
 "use client";
 
 import { z } from "zod";
-
+import { use } from "react";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { changePasswordAction } from "./actions";
 import { LoaderButton } from "@/components/loader-button";
 import { useServerAction } from "zsa-react";
+import { useI18n } from "@/locales/client";
 
 const registrationSchema = z
   .object({
@@ -34,12 +35,15 @@ const registrationSchema = z
     path: ["passwordConfirmation"],
   });
 
-export default async function ResetPasswordPage({
+export default function ResetPasswordPage({
   searchParams,
 }: {
   searchParams: Promise<{ token: string }>;
 }) {
-  const { token } = await searchParams;
+  const t = useI18n();
+  const resolvedParams = use(searchParams);
+  const { token } = resolvedParams;
+
   const form = useForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(registrationSchema),
     defaultValues: {
@@ -64,18 +68,18 @@ export default async function ResetPasswordPage({
       {isSuccess && (
         <>
           <h1 className={cn(pageTitleStyles, "text-center")}>
-            Password Updated
+            {t("auth.resetPassword.passwordUpdated")}
           </h1>
           <Alert variant="success">
             <Terminal className="h-4 w-4" />
-            <AlertTitle>Password updated</AlertTitle>
+            <AlertTitle>{t("auth.resetPassword.passwordUpdated")}</AlertTitle>
             <AlertDescription>
-              Your password has been successfully updated.
+              {t("auth.resetPassword.passwordUpdatedDescription")}
             </AlertDescription>
           </Alert>
 
           <Button variant="default" asChild className="w-full">
-            <Link href="/sign-in/email">Login with New Password</Link>
+            <Link href="/sign-in/email">{t("auth.resetPassword.loginWithNewPassword")}</Link>
           </Button>
         </>
       )}
@@ -83,13 +87,13 @@ export default async function ResetPasswordPage({
       {!isSuccess && (
         <>
           <h1 className={cn(pageTitleStyles, "text-center")}>
-            Change Password
+            {t("auth.resetPassword.changePassword")}
           </h1>
 
           {error && (
             <Alert variant="destructive">
               <Terminal className="h-4 w-4" />
-              <AlertTitle>Uh-oh, something went wrong</AlertTitle>
+              <AlertTitle>{t("common.error")}</AlertTitle>
               <AlertDescription>{error.message}</AlertDescription>
             </Alert>
           )}
@@ -101,12 +105,12 @@ export default async function ResetPasswordPage({
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>{t("auth.signIn.password")}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         className="w-full"
-                        placeholder="Enter your new password"
+                        placeholder={t("auth.resetPassword.enterNewPassword")}
                         type="password"
                       />
                     </FormControl>
@@ -120,12 +124,12 @@ export default async function ResetPasswordPage({
                 name="passwordConfirmation"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
+                    <FormLabel>{t("auth.signUp.confirmPassword")}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         className="w-full"
-                        placeholder="Enter Confirm your Password"
+                        placeholder={t("auth.resetPassword.confirmNewPassword")}
                         type="password"
                       />
                     </FormControl>
@@ -139,7 +143,7 @@ export default async function ResetPasswordPage({
                 className="w-full"
                 type="submit"
               >
-                Change Password
+                {t("auth.resetPassword.changePassword")}
               </LoaderButton>
             </form>
           </Form>

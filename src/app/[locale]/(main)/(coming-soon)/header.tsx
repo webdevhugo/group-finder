@@ -26,11 +26,7 @@ export function ComingSoonHeader() {
             </div>
           </Link>
         </div>
-
-        <div className="flex items-center gap-4">
-          <ModeToggle />
-          <LanguageToggle />
-        </div>
+        <ModeToggle />
       </div>
     </div>
   );
